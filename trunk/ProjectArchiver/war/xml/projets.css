@@ -1,0 +1,65 @@
+projets
+{
+	font-family: Calibri;
+	font-size: 12pt;
+}
+
+table{
+
+	width: 70%;
+	margin-left: auto;
+	border: medium solid #6495ed;	
+
+}
+.colonneGauche
+{
+	width: 250px;
+	
+}
+.Contenu
+{
+	font-size: 12pt;
+	margin-left: 40px;
+	vertical-align: top
+	
+}
+
+.Resume
+{
+	font-size: 12pt;
+	font-style: italic;
+	
+}
+.Etiquette
+{
+	font:Cambria;
+	font-style: Bold;
+	font-size: 14pt;
+	text-align: Left;
+	vertical-align: top;
+	margin-left: 20px;
+}
+.Interligne
+{
+	line-height:50px;
+
+}
+
+h1
+{
+	font-size: 28pt;
+	font-family: Calibri;
+	text-align: center;
+	color: #808000;
+}
+
+h2
+{
+	font-size: 24pt;
+	font-family: Calibri;
+	font-style: Italic;
+	text-align: center;
+	margin-top:auto;
+	margin-bottom:auto;
+	color: #87CEEB;
+}
