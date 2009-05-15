@@ -24,7 +24,7 @@ public class Authentification extends VerticalPanel {
 	
 	public SimplePanel construireTitre () {
 		SimplePanel titre = new SimplePanel();
-		titre.add(new HTML("<H1>Consultation de projet</H1>"));
+		titre.add(new HTML("<H1>HEIG-VD - Consultation de projet</H1>"));
 		titre.setStyleName("margeSup20");
 		return titre;
 	}
@@ -71,7 +71,6 @@ public class Authentification extends VerticalPanel {
 		contenu.setWidget(1, 0, champLogin);
 		contenu.setWidget(1, 1, champMotDePasse);
 		
-		conteneur.add(new HTML("L'espace professeur permet d'archiver les projets</BR>Cet espace nécessite une "));
 		conteneur.add(contenu);
 		conteneur.add(boutonConnexion);
 		
