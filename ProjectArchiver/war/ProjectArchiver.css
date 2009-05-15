@@ -1,0 +1,4 @@
+/* Pour les composants qui veulent avoir une marge supérieure*/
+.margeSup20  {
+	padding-top : 20px;
+}
