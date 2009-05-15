@@ -8,7 +8,7 @@
                         <xs:sequence maxOccurs="1">
                             <xs:element name="nom" type="xs:string"/>
                         </xs:sequence>
-                        <xs:attribute name="id"/>
+                        <xs:attribute name="id" type="xs:integer"/>
                     </xs:complexType>
                 </xs:element>
             </xs:sequence>
