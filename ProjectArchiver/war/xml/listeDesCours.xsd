@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="listeDesCours">
+        <xs:complexType>
+            <xs:sequence maxOccurs="unbounded">
+                <xs:element name="cours">
+                    <xs:complexType>
+                        <xs:sequence maxOccurs="1">
+                            <xs:element name="nom" type="xs:string"/>
+                        </xs:sequence>
+                        <xs:attribute name="id"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

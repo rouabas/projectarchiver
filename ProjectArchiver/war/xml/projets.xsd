@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="projets">
+        <xs:complexType>
+            <xs:sequence maxOccurs="unbounded">
+                <xs:element name="projet">
+                    <xs:complexType>
+                        <xs:sequence maxOccurs="unbounded">
+                            <xs:element name="titre" type="xs:string"/>
+                            <xs:element name="idBranche" type="xs:integer"/>
+                            <xs:element name="synopsis" type="xs:string"/>
+                            <xs:element name="ajouteLe" type="xs:date"/>
+                            <xs:element name="responsables">
+                                <xs:complexType>
+                                    <xs:sequence maxOccurs="unbounded">
+                                        <xs:element name="responsable" type="xs:string"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="auteurs">
+                                <xs:complexType>
+                                    <xs:sequence maxOccurs="unbounded">
+                                        <xs:element name="auteur" type="xs:string"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="motsCle">
+                                <xs:complexType>
+                                    <xs:sequence maxOccurs="unbounded">
+                                        <xs:element name="motCle" type="xs:string"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
