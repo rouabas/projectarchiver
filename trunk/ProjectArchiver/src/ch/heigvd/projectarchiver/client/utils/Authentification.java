@@ -1,6 +1,7 @@
 package ch.heigvd.projectarchiver.client.utils;
 
-import com.google.gwt.core.client.JavaScriptObject;
+import ch.heigvd.projectarchiver.client.InterfaceProf;
+
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestCallback;
@@ -8,18 +9,16 @@ import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.Response;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.gwtext.client.core.EventCallback;
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.widgets.Button;
-import com.gwtext.client.widgets.Component;
 import com.gwtext.client.widgets.MessageBox;
 import com.gwtext.client.widgets.Panel;
-import com.gwtext.client.widgets.event.ButtonListener;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.form.TextField;
-import com.gwtext.client.widgets.menu.Menu;
 
 public class Authentification extends VerticalPanel {
 	
@@ -124,6 +123,24 @@ public class Authentification extends VerticalPanel {
 	}
 	
 	/**
+	 * Ferme la session et affiche la fenêtre de login
+	 */
+	public void seDeconnecter () {
+		AjaxRequest requete = new AjaxRequest("php/authentification.php");
+		requete.addParameter("action", "seDeconnecter");
+		try {
+			requete.send(new RequestCallback() {
+				public void onError(Request request, Throwable exception) {}
+				public void onResponseReceived(Request request, Response response) {}
+			});
+		} catch (RequestException e1) {}
+		
+		RootPanel.get().clear();
+		RootPanel.get().add(this);
+		
+	}
+	
+	/**
 	 * Essaie de se connecter à l'espace professeur
 	 */
 	private void seConnecter () {
@@ -145,8 +162,13 @@ public class Authentification extends VerticalPanel {
 					else if (response.getText().equals("!erreurLDAP"))
 						MessageBox.alert("Erreur LDAP", "Une erreur inconnue s'est produite durant la connexion au LDAP." +
 						"<BR/>Veuillez noter que ce site n'est accessible que depuis la HEIG-VD ou à travers le VPN.");
-					else
-						MessageBox.alert(response.getText());
+					// Réponse OK
+					else {
+						InterfaceProf.createInstance(response.getText());
+						RootPanel.get().clear();
+						RootPanel.get().add(InterfaceProf.getInstance());
+					}
+						
 				}
 				
 			});

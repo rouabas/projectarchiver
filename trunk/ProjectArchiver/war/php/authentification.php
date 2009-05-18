@@ -19,6 +19,8 @@ include "LDAP.php";
 //             : '!erreurLDAP' => problème avec le LDAP
 //////////////////////////////////////////////////////////////////
 function authentification($login, $motDePasse) {
+	
+	return "UTILISATEUR DEBUG"; // A SUPPRIMER (UNIQUEMENT POUR DEBUG)
 
 	// Comme les erreurs LDAP s'affichent via des warnings, on les supprime
 	error_reporting(0);
