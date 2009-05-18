@@ -1,12 +1,25 @@
 package ch.heigvd.projectarchiver.client.utils;
 
+import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.http.client.Request;
+import com.google.gwt.http.client.RequestCallback;
+import com.google.gwt.http.client.RequestException;
+import com.google.gwt.http.client.Response;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.gwtext.client.core.EventCallback;
+import com.gwtext.client.core.EventObject;
 import com.gwtext.client.widgets.Button;
+import com.gwtext.client.widgets.Component;
+import com.gwtext.client.widgets.MessageBox;
 import com.gwtext.client.widgets.Panel;
+import com.gwtext.client.widgets.event.ButtonListener;
+import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.form.TextField;
+import com.gwtext.client.widgets.menu.Menu;
 
 public class Authentification extends VerticalPanel {
 	
@@ -20,6 +33,7 @@ public class Authentification extends VerticalPanel {
 		add(construireTitre());
 		add(construireAccueil());
 		add(construirePanneauAuth());
+		champLogin.focus(true, true);
 	}
 	
 	public SimplePanel construireTitre () {
@@ -29,6 +43,9 @@ public class Authentification extends VerticalPanel {
 		return titre;
 	}
 	
+	/**
+	 * @return Le panneau contenant le message de bienvenue et le lien pour entrer dans l'espace public
+	 */
 	public Panel construireAccueil () {
 		Panel panneauAccueil = new Panel();
 		panneauAccueil.setStyleName("margeSup20");
@@ -50,6 +67,9 @@ public class Authentification extends VerticalPanel {
 		return panneauAccueil;
 	}
 	
+	/**
+	 * @return Le panneau contenant le formulaire d'authentification pour accéder à l'espace des professeurs
+	 */
 	public Panel construirePanneauAuth () {
 		Panel panneauAuth = new Panel	();
 		VerticalPanel conteneur = new VerticalPanel();
@@ -74,8 +94,65 @@ public class Authentification extends VerticalPanel {
 		conteneur.add(contenu);
 		conteneur.add(boutonConnexion);
 		
+		// Action du bouton de connexion
+		boutonConnexion.addListener(new ButtonListenerAdapter() {
+
+			public void onClick(Button button, EventObject e) {
+				seConnecter();
+			}
+		});
+		
+		// Action sur le champs du login (validation par return)
+		champLogin.addKeyPressListener(new EventCallback() {
+
+			public void execute(EventObject e) {
+				if (e.getKey() == KeyCodes.KEY_ENTER)
+					seConnecter();
+			}
+		});
+		// Action sur le champs du mot de passe (validation par return)
+		champMotDePasse.addKeyPressListener(new EventCallback() {
+
+			public void execute(EventObject e) {
+				if (e.getKey() == KeyCodes.KEY_ENTER)
+					seConnecter();
+			}
+		});
+		
 		panneauAuth.add(conteneur);
-		champLogin.focus(true);
 		return panneauAuth;
+	}
+	
+	/**
+	 * Essaie de se connecter à l'espace professeur
+	 */
+	private void seConnecter () {
+		AjaxRequest requete = new AjaxRequest("php/authentification.php");
+		requete.addParameter("action", "authentification");
+		requete.addParameter("login", champLogin.getText());
+		requete.addParameter("motDePasse", champMotDePasse.getText());
+		try {
+			requete.send(new RequestCallback() {
+
+				public void onError(Request request, Throwable exception) {
+					MessageBox.alert("Une erreur inconnue s'est produite durant l'authentification");
+				}
+
+				public void onResponseReceived(Request request, Response response) {
+					// Vérification de la réponse
+					if (response.getText().equals("!false"))
+						MessageBox.alert("Nom d'utilisateur ou mot de passe incorrect");
+					else if (response.getText().equals("!erreurLDAP"))
+						MessageBox.alert("Erreur LDAP", "Une erreur inconnue s'est produite durant la connexion au LDAP." +
+						"<BR/>Veuillez noter que ce site n'est accessible que depuis la HEIG-VD ou à travers le VPN.");
+					else
+						MessageBox.alert(response.getText());
+				}
+				
+			});
+		} catch (RequestException e1) {
+			MessageBox.alert("Erreur", "Une erreur inconnue s'est produite durant l'authentification." +
+					"<BR/>Veuillez noter que ce site n'est accessible que depuis la HEIG-VD ou à travers le VPN.");
+		}
 	}
 }
