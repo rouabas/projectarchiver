@@ -1,0 +1,10 @@
+/* Met une marge inférieure à la grille qui contient le xml*/
+.grille{
+	padding-bottom:20px;
+}
+
+/* customise la taille du texte du bouton*/
+.textbouton{
+	padding-right:10px;
+	
+}
