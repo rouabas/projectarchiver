@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <?xml-stylesheet type="text/xsl" href="projets.xsl"?>
-<projets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="projets.xsd">
+<synopsis>C'est l'un des plus gand projet jamais réalisé à la HEIG</synopsis><projets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="projets.xsd">
 	
 	<projet id="1">
 		<titre>Project Archiver</titre>
 		<idBranche>1</idBranche>
-		<synopsis>C'est l'un des plus gand projet jamais réalisé à la HEIG</synopsis>
+		
 		<ajouteLe>2008-05-14T10:28:52+01:00</ajouteLe>
 		
 		<responsables>

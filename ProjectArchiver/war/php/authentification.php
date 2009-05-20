@@ -15,8 +15,7 @@ include "LDAP.php";
 // $motDePasse : Le mot de passe de l'utilisateur
 // Résultat    : Renvoie le nom complet de l'utilisateur,
 //			   : '!false' sinon
-// Erreur      : '!erreurBD' => problème de connexion à la BD
-//             : '!erreurLDAP' => problème avec le LDAP
+// Erreur      : '!erreurLDAP' => problème avec le LDAP
 //////////////////////////////////////////////////////////////////
 function authentification($login, $motDePasse) {
 	
