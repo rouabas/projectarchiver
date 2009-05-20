@@ -42,7 +42,7 @@
 		<tr>
 			<td colspan="2">
 				<a name="{generate-id()}">
-					<h2><xsl:value-of select="titre"/></h2>
+					<h2><xsl:value-of select="@id"/> - <xsl:value-of select="titre"/></h2>
 				</a>	
 			</td>
 		</tr>	
