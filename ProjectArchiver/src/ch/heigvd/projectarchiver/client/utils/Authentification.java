@@ -144,7 +144,7 @@ public class Authentification extends VerticalPanel {
 	 * Essaie de se connecter à l'espace professeur
 	 */
 	private void seConnecter () {
-		AjaxRequest requete = new AjaxRequest("php/authentification.php");
+		AjaxRequest requete = new AjaxRequest("php/Authentification.php");
 		requete.addParameter("action", "authentification");
 		requete.addParameter("login", champLogin.getText());
 		requete.addParameter("motDePasse", champMotDePasse.getText());
