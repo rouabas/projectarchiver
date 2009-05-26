@@ -1,24 +1,25 @@
 <?php
 
 
-//////////////////////////////////////////////////////////////////
-// Fichier: authentification.php
-// But    : Fonctions pour gérer l'authentification
-// Date   : 18 mai 2009
-//////////////////////////////////////////////////////////////////
+/**
+ *Fichier: authentification.php
+ * But    : Fonctions pour gérer l'authentification
+ * Date   : 18 mai 2009
+ */
 
 include "LDAP.php";
 
-//////////////////////////////////////////////////////////////////
-// But         : Authentifier un utilisateur
-// $login      : Le login de l'utilisateur
-// $motDePasse : Le mot de passe de l'utilisateur
-// Résultat    : Renvoie le nom complet de l'utilisateur,
-//			   : '!false' sinon
-// Erreur      : '!erreurLDAP' => problème avec le LDAP
-//////////////////////////////////////////////////////////////////
+/**
+ * But: Authentifier un utilisateur
+ * @param login
+ * @param motDePase
+ * @return Le nom complet de l'utilisateur en cas de réussite, "!false"
+ * 		   en cas d'échec, "erreurLDAP" si la connexion avec le ldap a
+ * 		   échoué
+ */
 function authentification($login, $motDePasse) {
-	
+	session_start(); // A SUPPRIMER (UNIQUEMENT POUR DEBUG)
+	$_SESSION["login"] = "UTILISATEUR DEBUG"; // A SUPPRIMER (UNIQUEMENT POUR DEBUG)
 	return "UTILISATEUR DEBUG"; // A SUPPRIMER (UNIQUEMENT POUR DEBUG)
 
 	// Comme les erreurs LDAP s'affichent via des warnings, on les supprime
@@ -53,6 +54,7 @@ function authentification($login, $motDePasse) {
 		
 		// Si on a trouvé une entrée, c'est bon
 		if ($resultat["count"] == 1) {
+			session_start();
 			$_SESSION["login"] = $login;
 			return $resultat[0]["givenname"][0] . " " . $resultat[0]["sn"][0];
 		}
@@ -71,10 +73,10 @@ function authentification($login, $motDePasse) {
 
 }
 
-//////////////////////////////////////////////////////////////////
-// But      : Se déconnecter d'une session
-// Résultat : Aucun résultat!
-//////////////////////////////////////////////////////////////////
+/**
+ * But: Se déconnecter d'une session
+ * @return Aucun résultat!
+ */
 function seDeconnecter() {
 	session_start(); // on démarre la session
 	session_unset(); // on efface toutes les variables de session
@@ -82,12 +84,11 @@ function seDeconnecter() {
 	return "";
 }
 
-//////////////////////////////////////////////////////////////////
-// But      : Savoir si un utilisateur est administrateur
-// $login   : Le login de l'utilisateur
-// Résultat : Renvoie 'true' si l'utilisateur est connecte,
-//          : 'false' sinon
-//////////////////////////////////////////////////////////////////
+/**
+ * But: Savoir si un utilisateur est administrateur
+ * @param login Le login de l'utilisateur
+ * @return  'true' si l'utilisateur est connecte, 'false' sinon
+ */
 function estConnecte() {
 	include 'Session.php';
 

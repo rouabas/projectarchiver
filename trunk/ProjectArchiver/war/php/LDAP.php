@@ -1,11 +1,11 @@
 <?php
 
-//////////////////////////////////////////////////////////////////
-// Fichier: LDAP.php
-// But    : Mettre à disposition les constantes pour l'accès au
-//        : LDAP.
-// Date   : 18 mai 2009
-//////////////////////////////////////////////////////////////////
+/**
+ * Fichier: LDAP.php
+ * But    : Mettre à disposition les constantes pour l'accès au
+ *        : LDAP.
+ * Date   : 18 mai 2009
+ */
 
 define("ADRESSE_LDAP", "eidc01.heig-vd.ch");
 define("PORT_LDAP", 389);
