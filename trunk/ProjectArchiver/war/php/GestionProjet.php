@@ -19,10 +19,10 @@
  */
 function ajouterProject ($titre, $idBranche, $synopsis, $responsables, $auteurs, $motsCle) {
 	
-	// On vérifie l'état de la session (désactivé pour debug)
-	/*include "Session.php";
+	// On vérifie l'état de la session
+	include "Session.php";
 	if (!$estLogue)
-		return "!session";*/
+		return "!session";
 	
 	// On gère les erreurs nous même (DOM ne lève pas des exceptions mais des Warnings)
 	error_reporting(0);
