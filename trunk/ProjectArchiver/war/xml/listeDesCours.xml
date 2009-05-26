@@ -1,20 +1,18 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <listeDesCours xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="listeDesCours.xsd">
-
-	<cours id="1">
-		<nom>BDR</nom>
-	</cours>
-	
-	<cours id="2">
-		<nom>PDG</nom>
-	</cours>
-	
-	<cours id="3">
-		<nom>XML</nom>
-	</cours>
-	
-	<cours id="4">
-		<nom>WEB</nom>
-	</cours>
-
+  <cours id="1">
+    <nom>BDR</nom>
+  </cours>
+  <cours id="2">
+    <nom>PDG</nom>
+  </cours>
+  <cours id="3">
+    <nom>XML</nom>
+  </cours>
+  <cours id="4">
+    <nom>WEB</nom>
+  </cours>
+  <cours id="5">
+    <nom>fdsad</nom>
+  </cours>
 </listeDesCours>
