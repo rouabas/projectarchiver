@@ -1,9 +1,9 @@
 <?php
-//////////////////////////////////////////////////////////////////
-// Fichier: Session.php
-// But    : Mise à disposition de la variable est estLogue;
-// Date   : 18 mai 2009
-//////////////////////////////////////////////////////////////////
+/**
+ * Fichier: Session.php
+ * But    : Mise à disposition de la variable est estLogue;
+ * Date   : 18 mai 2009
+ */
 
 	session_start();// on démarre la session	
 	if (!session_is_registered("login"))
