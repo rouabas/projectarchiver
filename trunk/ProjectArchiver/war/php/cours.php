@@ -79,9 +79,9 @@ function ajouter($cours) {
 //////////////////////////////////////////////////////////////////
 function coursXML(){
 	// On vérifie l'état de la session
-	include "Session.php";
-	if (!$estLogue)
-		return "!session";
+//	include "Session.php";
+//	if (!$estLogue)
+//		return "!session";
 	
 	$file = file_get_contents ("../xml/listeDesCours.xml");
 	
