@@ -82,7 +82,13 @@
 			<td class="Resume" colspan="2"><xsl:value-of  select="synopsis"/></td>
 		</tr>
 		<tr>
-			<td colspan="2" class="Interligne">
+			
+			<td class="Interligne">
+				<xsl:variable name="archive" select="nomArchive"/>
+				<a href="{$archive}">Télécharger l'archive</a>
+			</td>	
+			
+			<td	 class="Interligne">
 				<a href="#home">home</a>
 			</td>			
 			
