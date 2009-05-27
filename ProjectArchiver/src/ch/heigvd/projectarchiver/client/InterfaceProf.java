@@ -14,6 +14,7 @@ import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.menu.BaseItem;
 import com.gwtext.client.widgets.menu.Item;
 import com.gwtext.client.widgets.menu.Menu;
+import com.gwtext.client.widgets.menu.event.BaseItemListener;
 import com.gwtext.client.widgets.menu.event.BaseItemListenerAdapter;
 
 public class InterfaceProf extends VerticalPanel {
@@ -89,6 +90,11 @@ public class InterfaceProf extends VerticalPanel {
 		
 		// Menu pour ajouter un projet
 		Item itemAjouterProjet = new Item("Ajouter un projet");
+		itemAjouterProjet.addListener(new BaseItemListenerAdapter(){
+			public void onClick(BaseItem item, EventObject e) {
+				changerVue(new AjoutProjet());
+			}
+		});
 		menu.addItem(itemAjouterProjet);
 		
 		// Menu pour chercher un projet
