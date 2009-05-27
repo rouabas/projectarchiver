@@ -1,57 +1,92 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <?xml-stylesheet type="text/xsl" href="projets.xsl"?>
 <projets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="projets.xsd">
-	
-	<projet id="1">
-		<titre>Project Archiver</titre>
-		<idBranche>1</idBranche>
-		<synopsis>C'est l'un des plus gand projet jamais réalisé à la HEIG</synopsis>
-		<ajouteLe>2008-05-14T10:28:52+01:00</ajouteLe>
-		
-		<responsables>
-			<responsable>Eric LeFrancois</responsable>
-		</responsables>
-		
-		<auteurs>
-			<auteur>Greg One</auteur>
-			<auteur>Greg Two</auteur>	
-			<auteur>Thomas Jordan</auteur>	
-		</auteurs>
-		
-		<motsCle>
-			<motCle>Idée géniale</motCle>
-			<motCle>Inovation</motCle>
-			<motCle>Greg</motCle>
-		</motsCle>
-		<nomArchive>project_Archiver_megahit.tar.bz2</nomArchive>
-
-	</projet>
-	
-	<projet id="2">
-		<titre>Tron Cycle</titre>
-		<idBranche>2</idBranche>
-		<synopsis>Anotherone greg'fabulous idea</synopsis>
-		<ajouteLe>2008-06-06T21:32:52+01:00</ajouteLe>
-		
-		<responsables>
-			<responsable>Eric LeFrancois</responsable>
-		</responsables>
-		
-		<auteurs>
-			<auteur>Greg M(agnifique)oinat</auteur>
-			<auteur>Lionel Erard</auteur>
-			<auteur>Julien Leglaunec</auteur>	
-			<auteur>Nicolas Muller</auteur>	
-			<auteur>Thomas Jordan</auteur>
-		</auteurs>
-		
-		<motsCle>
-			<motCle>Tricyle</motCle>
-			<motCle>Tron</motCle>
-			<motCle>Greg</motCle>
-		</motsCle>
-		<nomArchive>proj_gen_12.12.2008_troncycle.zip</nomArchive>
-
-	</projet>
-	
+  <projet id="1">
+    <titre>Project Archiver</titre>
+    <idBranche>1</idBranche>
+    <synopsis>C'est l'un des plus gand projet jamais réalisé à la HEIG</synopsis>
+    <ajouteLe>2008-05-14T10:28:52+01:00</ajouteLe>
+    <responsables>
+      <responsable>Eric LeFrancois</responsable>
+    </responsables>
+    <auteurs>
+      <auteur>Greg One</auteur>
+      <auteur>Greg Two</auteur>
+      <auteur>Thomas Jordan</auteur>
+    </auteurs>
+    <motsCle>
+      <motCle>Idée géniale</motCle>
+      <motCle>Inovation</motCle>
+      <motCle>Greg</motCle>
+    </motsCle>
+    <nomArchive>project_Archiver_megahit.tar.bz2</nomArchive>
+  </projet>
+  <projet id="2">
+    <titre>Tron Cycle</titre>
+    <idBranche>2</idBranche>
+    <synopsis>Anotherone greg'fabulous idea</synopsis>
+    <ajouteLe>2008-06-06T21:32:52+01:00</ajouteLe>
+    <responsables>
+      <responsable>Eric LeFrancois</responsable>
+    </responsables>
+    <auteurs>
+      <auteur>Greg M(agnifique)oinat</auteur>
+      <auteur>Lionel Erard</auteur>
+      <auteur>Julien Leglaunec</auteur>
+      <auteur>Nicolas Muller</auteur>
+      <auteur>Thomas Jordan</auteur>
+    </auteurs>
+    <motsCle>
+      <motCle>Tricyle</motCle>
+      <motCle>Tron</motCle>
+      <motCle>Greg</motCle>
+    </motsCle>
+    <nomArchive>proj_gen_12.12.2008_troncycle.zip</nomArchive>
+  </projet>
+  <projet id="3">
+    <titre>test</titre>
+    <idBranche>1</idBranche>
+    <synopsis>synop</synopsis>
+    <responsables>
+      <responsable>greg</responsable>
+    </responsables>
+    <auteurs>
+      <auteur>greg</auteur>
+    </auteurs>
+    <motsCle>
+      <motCle>greg</motCle>
+    </motsCle>
+  </projet>
+  <projet id="4">
+    <titre>test</titre>
+    <idBranche>1</idBranche>
+    <synopsis>synop</synopsis>
+    <responsables>
+      <responsable>greg</responsable>
+    </responsables>
+    <auteurs>
+      <auteur>greg</auteur>
+    </auteurs>
+    <motsCle>
+      <motCle>greg</motCle>
+    </motsCle>
+  </projet>
+  <projet id="5">
+    <titre>Projet XML</titre>
+    <idBranche>1</idBranche>
+    <synopsis>Un projet en GWT</synopsis>
+    <responsables>
+      <responsable>els</responsable>
+    </responsables>
+    <auteurs>
+      <auteur>thomas</auteur>
+      <auteur>greg</auteur>
+      <auteur>greg</auteur>
+    </auteurs>
+    <motsCle>
+      <motCle>jamais</motCle>
+      <motCle>fini</motCle>
+    </motsCle>
+    <nomArchive>Mini projet protocole.pdf</nomArchive>
+  </projet>
 </projets>
