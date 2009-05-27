@@ -20,9 +20,9 @@
 function ajouterProject ($titre, $idBranche, $synopsis, $responsables, $auteurs, $motsCle) {
 	
 	// On vérifie l'état de la session
-	include "Session.php";
+	/*include "Session.php";
 	if (!$estLogue)
-		return "!session";
+		return "!session";*/
 	
 	// On gère les erreurs nous même (DOM ne lève pas des exceptions mais des Warnings)
 	error_reporting(0);
@@ -51,9 +51,9 @@ function ajouterProject ($titre, $idBranche, $synopsis, $responsables, $auteurs,
 	$nouveauProjet = $document->createElement("projet");
 	$nouveauProjet->setAttribute("id", $id);
 	// Création du dossier du projet et upload
-	//mkdir("../projectFiles/" . $id, 0777, true);
-	//$emplacementFichier = "../projectFiles/" . $id . "/" . $_FILES['fichier']['name'];
-	//move_uploaded_file($_FILES['fichier']['tmp_name'], $emplacementFichier);
+	mkdir("../projectFiles/" . $id, 0777, true);
+	$emplacementFichier = "../projectFiles/" . $id . "/" . $_FILES['fichier']['name'];
+	move_uploaded_file($_FILES['fichier']['tmp_name'], $emplacementFichier);
 	
 	// Titre
 	$elemTitre = $document->createElement("titre");
@@ -105,6 +105,12 @@ function ajouterProject ($titre, $idBranche, $synopsis, $responsables, $auteurs,
 		$elemMotsCle->appendChild($tabElemMotCle[$i]);
 	}
 	$nouveauProjet->appendChild($elemMotsCle);
+	
+	// Nom de l'archive
+	$elemArchive = $document->createElement("nomArchive");
+	$valeurArchive = $document->createTextNode($_FILES['fichier']['name']);
+	$elemArchive->appendChild($valeurArchive);
+	$nouveauProjet->appendChild($elemArchive);
 	
 	// Récupération de la racine du document pour y ajouter le nouveau projet
 	$racine = $document->getElementsByTagName("projets")->item(0);

@@ -28,9 +28,14 @@ public class AjoutCours extends Panel{
 	
 	private final TextField cours = new TextField();
 	// le flux XML
-	private final XmlReader xml = new XmlReader("cours", new RecordDef(
+	private final XmlReader xml = new XmlReader("projet", new RecordDef(
 			new FieldDef[]{
-					new StringFieldDef("nom")
+					new StringFieldDef("titre"),
+					new StringFieldDef("idBranche"),
+					new StringFieldDef("synopsis"),
+					new StringFieldDef("responsable"),
+					new StringFieldDef("synopsis"),
+					new StringFieldDef("ajoute_le"),
 			}
 	));
 	
