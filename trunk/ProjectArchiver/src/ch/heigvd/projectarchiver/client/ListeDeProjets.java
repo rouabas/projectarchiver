@@ -32,6 +32,7 @@ public class ListeDeProjets extends GridPanel{
 	 */
 	public ListeDeProjets(Store store, String titre) {
 		super(store, columnModel);
+		setTitle(titre);
 		getColumnModel().setHidden(0, true);
 		getColumnModel().setRenderer(1, new ViewColumn());
 		setTitle(titre);

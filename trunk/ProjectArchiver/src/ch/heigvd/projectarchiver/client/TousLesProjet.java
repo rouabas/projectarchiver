@@ -40,7 +40,7 @@ public class TousLesProjet extends VerticalPanel {
 		setWidth("100%");
 		setStyleName("margeSup20");
 		setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
-		table.setWidget(0, 0, new ListeDeProjets(store, "Liste en cours"));
+		table.setWidget(0, 0, new ListeDeProjets(store, "Liste des projets"));
 		add(table);
 		chargementProjets();
 	}
