@@ -89,4 +89,22 @@
     </motsCle>
     <nomArchive>Mini projet protocole.pdf</nomArchive>
   </projet>
+  <projet id="6">
+    <titre>Lumino</titre>
+    <idBranche>2</idBranche>
+    <synopsis>Gestion de luminaire</synopsis>
+    <date>28/05/2009</date>
+    <responsables>
+      <responsable>Abdelali Guerid</responsable>
+    </responsables>
+    <auteurs>
+      <auteur>Grégory Moinat</auteur>
+    </auteurs>
+    <motsCle>
+      <motCle>luminaires</motCle>
+      <motCle>php,ajax,gwt</motCle>
+      <motCle>sey</motCle>
+    </motsCle>
+    <nomArchive>Adresse MAC.rtf</nomArchive>
+  </projet>
 </projets>

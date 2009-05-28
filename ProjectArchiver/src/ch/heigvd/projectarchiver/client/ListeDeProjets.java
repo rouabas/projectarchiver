@@ -1,23 +1,30 @@
 package ch.heigvd.projectarchiver.client;
 
+import com.google.gwt.core.client.GWT;
+import com.gwtext.client.core.EventObject;
+import com.gwtext.client.data.Record;
 import com.gwtext.client.data.Store;
+import com.gwtext.client.widgets.grid.CellMetadata;
 import com.gwtext.client.widgets.grid.ColumnConfig;
 import com.gwtext.client.widgets.grid.ColumnModel;
 import com.gwtext.client.widgets.grid.GridPanel;
+import com.gwtext.client.widgets.grid.Renderer;
+import com.gwtext.client.widgets.grid.event.GridCellListener;
+import com.gwtext.client.widgets.grid.event.GridCellListenerAdapter;
 
 public class ListeDeProjets extends GridPanel{
 	
 	// Description des colonnes de la liste
-	private final static ColumnModel columnModel = new ColumnModel(new ColumnConfig[]{  
-            new ColumnConfig("titre", "titre", 100, true),
-            new ColumnConfig("branche", "branche", 80, true),  
-            new ColumnConfig("synopsis", "synopsis", 110, true),
-            new ColumnConfig("ajouteLe", "ajouteLe", 80, true),
-            new ColumnConfig("responsables", "responsables", 150, true),
-            new ColumnConfig("auteurs", "auteurs", 150, true),
-            new ColumnConfig("motscle", "motscle", 150, true),
-            new ColumnConfig("nomArchive", "nomArchive", 80, true),
+	private final static ColumnModel columnModel = new ColumnModel(new ColumnConfig[]{
+			new ColumnConfig("Id", "@id", 0, true),
+			new ColumnConfig("", "voir", 30, true),
+            new ColumnConfig("Titre", "titre", 100, true),
+            new ColumnConfig("Branche", "branche", 100, true),  
+            new ColumnConfig("Date d'ajout", "ajouteLe", 100, true),
+            new ColumnConfig("Synopsis", "synopsis", 300, true),
+            new ColumnConfig("motsCle", "motsCle", 265, true)
     });
+	
 
 	/**
 	 * Constructeur
@@ -26,8 +33,33 @@ public class ListeDeProjets extends GridPanel{
 	 */
 	public ListeDeProjets(Store store, String titre) {
 		super(store, columnModel);
+		getColumnModel().setHidden(0, true);
+		getColumnModel().setRenderer(1, new ViewColumn());
 		setTitle(titre);
 		setWidth("900px");
 		setHeight("400px");
+		
+		// Action du bouton "voir"
+		addGridCellListener(new GridCellListenerAdapter() {
+
+			public void onCellClick(GridPanel grid, int rowIndex, int colIndex, EventObject e) {
+				if (e.getMouseButton() == 0)
+					InterfaceProf.getInstance().changerVue(new PageProjet(getStore().getAt(rowIndex)));
+			}			
+		});
 	}
+
+	/**
+	 * Classe interne pour représenter la colonne qui contient les boutons pour
+	 * afficher la page d'un projet
+	 */
+	private class ViewColumn implements Renderer{
+
+		public String render(Object value, CellMetadata cellMetadata,
+				Record record, int rowIndex, int colNum, Store store) {
+			return "<img src='" + GWT.getModuleBaseURL() + "../images/zoom-in.gif' alt='Voir' style='cursor:pointer' />";
+		}
+
+	}
+
 }
