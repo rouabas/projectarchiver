@@ -20,12 +20,12 @@
 function ajouterProject ($titre, $idBranche, $synopsis, $responsables, $auteurs, $motsCle) {
 	
 	// On vérifie l'état de la session
-	/*include "Session.php";
+	include "Session.php";
 	if (!$estLogue)
-		return "!session";*/
+		return "!session";
 	
 	// On gère les erreurs nous même (DOM ne lève pas des exceptions mais des Warnings)
-	error_reporting(0);
+	//error_reporting(0);
 	set_error_handler("traitementErreurs");
 
 	$document = new DOMDocument();
@@ -50,10 +50,6 @@ function ajouterProject ($titre, $idBranche, $synopsis, $responsables, $auteurs,
 	// Création de éléments composants le projet
 	$nouveauProjet = $document->createElement("projet");
 	$nouveauProjet->setAttribute("id", $id);
-	// Création du dossier du projet et upload
-	mkdir("../projectFiles/" . $id, 0777, true);
-	$emplacementFichier = "../projectFiles/" . $id . "/" . $_FILES['fichier']['name'];
-	move_uploaded_file($_FILES['fichier']['tmp_name'], $emplacementFichier);
 	
 	// Titre
 	$elemTitre = $document->createElement("titre");
@@ -72,6 +68,13 @@ function ajouterProject ($titre, $idBranche, $synopsis, $responsables, $auteurs,
 	$valeurSynopsis = $document->createTextNode($synopsis);
 	$elemSynopsis->appendChild($valeurSynopsis);
 	$nouveauProjet->appendChild($elemSynopsis);
+	
+	// Date
+	$date = new DateTime("now", new DateTimeZone("Europe/Berlin"));
+	$elemDate = $document->createElement("date");
+	$valeurDate = $document->createTextNode($date->format("d/m/Y"));
+	$elemDate->appendChild($valeurDate);
+	$nouveauProjet->appendChild($elemDate);
 	
 	// Responsables
 	$elemResponsables = $document->createElement("responsables");
@@ -117,8 +120,12 @@ function ajouterProject ($titre, $idBranche, $synopsis, $responsables, $auteurs,
 	$racine->appendChild($nouveauProjet);
 	
 	// On enregistre le document
-	$document->normalizeDocument();
 	$document->save("../xml/projets.xml");
+	
+	// Création du dossier du projet et upload
+	mkdir("../projectFiles/" . $id, 0777, true);
+	$emplacementFichier = "../projectFiles/" . $id . "/" . $_FILES['fichier']['name'];
+	move_uploaded_file($_FILES['fichier']['tmp_name'], $emplacementFichier);
 	
 	return "!ok";
 }
@@ -131,16 +138,106 @@ function ajouterProject ($titre, $idBranche, $synopsis, $responsables, $auteurs,
  	exit();
  }
  
+ /**
+  * Liste tous les projets
+  */
  function listerTousLesProjets() {
  	// On vérifie l'état de la session
-	/*include "Session.php";
+	include "Session.php";
 	if (!$estLogue)
-		return "!session";*/
+		return "!session";
 	
-	$file = file_get_contents ("../xml/projets.xml");
+	error_reporting(0);
+	set_error_handler("traitementErreurs");
 	
-	return $file;
+	$document = new DOMDocument();
+	$document->preserveWhiteSpace = false;
+	$document->load("../xml/projets.xml");
 	
+	// Récupération de tous les projets avec XPATH
+	$xpath = new DOMXPath($document);
+	$projets = $xpath->evaluate("/projets/projet");
+	
+	return obtenirChaineXMLProjets($projets);
+ }
+ 
+ /**
+  * Convertit un noeud obtenu avec xpath en chaine de texte XML prête à l'emploi
+  * @param noeudProjets Le noeud obtenu avec xpath
+  */
+ function obtenirChaineXMLProjets($noeudProjets) {
+ 	// On écrit chaque projet
+	$chaineXML = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>";
+	$chaineXML .= "<projets>";
+	for ($i = 0; $i < $noeudProjets->length; $i++) {
+		$projetCourant = $noeudProjets->item($i);
+		$elementsDuProjet = $projetCourant->childNodes;
+		$chaineXML .= "<projet id='" . $projetCourant->attributes->getNamedItem("id")->nodeValue . "'>\n";
+		// On parcours chaque élément du projet
+		for($j = 0; $j < $elementsDuProjet->length; $j++) {
+			$elementCourant = $elementsDuProjet->item($j);
+			// On traite les cas particuliers	
+			if ($elementCourant->localName == "auteurs") {
+				$auteurs = $elementCourant->childNodes;
+				$chaineXML .= "<auteurs>";
+				for ($auteur = 0; $auteur < $auteurs->length; $auteur++) {
+					// On rassemble tous les auteurs dans une balise
+					$chaineXML .= $auteurs->item($auteur)->nodeValue;
+					// Séparation par des virgules et des espaces
+					if ($auteur < $auteurs->length - 1)
+					$chaineXML .= ", ";
+				}
+				$chaineXML .= "</auteurs>\n";
+			}
+			else if ($elementCourant->localName == "idBranche") {
+				$branchesDocument = new DOMDocument();
+				$branchesDocument->load("../xml/listeDesCours.xml");
+				$xpathBranche = new DOMXPath($branchesDocument);
+				$resultat = $xpathBranche->evaluate("//cours[@id = '". $elementCourant->nodeValue . "']");
+				if ($resultat->length > 0) {
+					$nomBranche = $resultat->item(0);
+					$chaineXML .= "<branche>" . $nomBranche->nodeValue . "</branche>";
+				}
+					
+			}
+			else if ($elementCourant->localName == "responsables") {
+				$responsables = $elementCourant->childNodes;
+				$chaineXML .= "<responsables>";
+				for ($responsable = 0; $responsable < $responsables->length; $responsable++) {
+					// On rassemble tous les responsables dans une balise
+					$chaineXML .= $responsables->item($responsable)->nodeValue;
+					// Séparation par des virgules et des espaces
+					if ($responsable < $responsables->length - 1)
+					$chaineXML .= ", ";
+				}
+				$chaineXML .= "</responsables>\n";
+			}
+			else if ($elementCourant->localName == "motsCle") {
+				$motsCle = $elementCourant->childNodes;
+				$chaineXML .= "<motsCle>";
+				for ($motCle = 0; $motCle < $motsCle->length; $motCle++) {
+					// On rassemble tous les responsables dans une balise
+					$chaineXML .= $motsCle->item($motCle)->nodeValue;
+					// Séparation par des virgules et des espaces
+					if ($motCle < $motsCle->length - 1)
+					$chaineXML .= ", ";
+				}
+				$chaineXML .= "</motsCle>\n";
+			}
+			else {
+				$chaineXML .= "<" . $elementCourant->localName . ">";
+				$chaineXML .= $elementCourant->nodeValue;
+				$chaineXML .= "</" . $elementCourant->localName . ">\n";
+			}
+		}
+		$chaineXML .= "</projet>\n";
+		
+	}
+	
+	$chaineXML .= "</projets>\n";
+		
+	return $chaineXML;
+ 
  }
  
 /**
@@ -148,7 +245,12 @@ function ajouterProject ($titre, $idBranche, $synopsis, $responsables, $auteurs,
  */
 
 header('Content-Type: text/plain; charset=utf-8');
-//header('Content-Type: text/xml; charset=utf-8');
+
+if ($_GET['action'] == "all") {
+	echo listerTousLesProjets();
+	return;
+}
+	
 
 switch ($_POST['action']) {
 

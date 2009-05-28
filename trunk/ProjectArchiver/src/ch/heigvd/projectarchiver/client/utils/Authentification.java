@@ -29,13 +29,58 @@ public class Authentification extends VerticalPanel {
 		setWidth("100%");
 		setHeight("100px");
 		setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
+		demarrerLogin();
+	}
+	
+	/**
+	 * Vérifie si une session existe et sinon affiche la page de login
+	 */
+	private void demarrerLogin () {
+		// On vérifie si une session existe déjà
+		AjaxRequest request = new AjaxRequest("php/Authentification.php");
+		request.addParameter("action", "estConnecte");
+		
+		try {
+			request.send(new RequestCallback() {
+	
+				// Une erreur s'est produite, on affiche la page de login
+				public void onError(Request request, Throwable exception) {
+					afficherPageLogin();
+				}
+	
+				public void onResponseReceived(Request request, Response response) {
+					// Si la session est déjà ouverte, on affiche l'interface
+					if (!response.getText().trim().equals("false")) {
+						InterfaceProf.createInstance(response.getText());
+						RootPanel.get().clear();
+						RootPanel.get().add(InterfaceProf.getInstance());
+					}
+					// Sinon => page de login
+					else
+						afficherPageLogin();
+				}
+			});
+		}
+		// Une erreur s'est produite, on affiche la page de login
+		catch (RequestException e) {
+			afficherPageLogin();
+		}
+	}
+	
+	/**
+	 * Affiche la page de login
+	 */
+	public void afficherPageLogin () {
 		add(construireTitre());
 		add(construireAccueil());
 		add(construirePanneauAuth());
 		champLogin.focus(true, true);
 	}
 	
-	public SimplePanel construireTitre () {
+	/**
+	 * @return Le panneau contenant le titre
+	 */
+	private SimplePanel construireTitre () {
 		SimplePanel titre = new SimplePanel();
 		titre.add(new HTML("<H1>HEIG-VD - Consultation de projet</H1>"));
 		titre.setStyleName("margeSup20");
@@ -45,7 +90,7 @@ public class Authentification extends VerticalPanel {
 	/**
 	 * @return Le panneau contenant le message de bienvenue et le lien pour entrer dans l'espace public
 	 */
-	public Panel construireAccueil () {
+	private Panel construireAccueil () {
 		Panel panneauAccueil = new Panel();
 		panneauAccueil.setStyleName("margeSup20");
 		
@@ -69,7 +114,7 @@ public class Authentification extends VerticalPanel {
 	/**
 	 * @return Le panneau contenant le formulaire d'authentification pour accéder à l'espace des professeurs
 	 */
-	public Panel construirePanneauAuth () {
+	private Panel construirePanneauAuth () {
 		Panel panneauAuth = new Panel	();
 		VerticalPanel conteneur = new VerticalPanel();
 		FlexTable contenu = new FlexTable();

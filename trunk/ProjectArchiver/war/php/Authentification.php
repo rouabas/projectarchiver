@@ -87,14 +87,14 @@ function seDeconnecter() {
 /**
  * But: Savoir si un utilisateur est administrateur
  * @param login Le login de l'utilisateur
- * @return  'true' si l'utilisateur est connecte, 'false' sinon
+ * @return  Le nom de l'utilisateur s'il connecté, 'false' sinon
  */
 function estConnecte() {
 	include 'Session.php';
 
 	// On vérifie qu'une session est ouverte 
 	if ($estLogue)
-		return "true";
+		return $_SESSION["login"];
 	else
 		return "false";
 }

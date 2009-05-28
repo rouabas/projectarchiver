@@ -14,17 +14,18 @@ import com.gwtext.client.data.StringFieldDef;
 import com.gwtext.client.data.XmlReader;
 import com.gwtext.client.widgets.MessageBox;
 
-public class GestionProjet extends VerticalPanel {
+public class TousLesProjet extends VerticalPanel {
 	
 	final private XmlReader reader = new XmlReader("projet", new RecordDef(  
             new FieldDef[]{  
+            		new StringFieldDef("@id"),
             		new StringFieldDef("titre"),
-					new StringFieldDef("idBranche"),
+					new StringFieldDef("branche"),
 					new StringFieldDef("synopsis"),
 					new StringFieldDef("ajouteLe"),
 					new StringFieldDef("responsables"),
 					new StringFieldDef("auteurs"),
-					new StringFieldDef("motscle"),
+					new StringFieldDef("motsCle"),
 					new StringFieldDef("nomArchive"),
             }
     ));
@@ -34,7 +35,7 @@ public class GestionProjet extends VerticalPanel {
 	/**
 	 * Constructeur
 	 */
-	public GestionProjet () {
+	public TousLesProjet () {
 		FlexTable table = new FlexTable();
 		setWidth("100%");
 		setStyleName("margeSup20");
