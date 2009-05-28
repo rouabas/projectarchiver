@@ -3,6 +3,9 @@ package ch.heigvd.projectarchiver.client;
 import ch.heigvd.projectarchiver.client.utils.Authentification;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -32,6 +35,27 @@ public class InterfaceProf extends VerticalPanel {
 		toolbar = construireToolbar();
 		add(toolbar);
 		add(new AccueilProf());
+		History.newItem("Accueil");
+		
+		// Gestion de l'historique
+		History.addValueChangeHandler(new ValueChangeHandler<String>() {
+
+			public void onValueChange(ValueChangeEvent<String> event) {
+				if (event.getValue().equals("Accueil")) {
+					changerVue(new AccueilProf());
+				}
+				else if (event.getValue().equals("AjoutProjet")) {
+					changerVue(new AjoutProjet());
+				}
+				else if (event.getValue().equals("TousLesProjets")) {
+					changerVue(new TousLesProjet());
+				}
+				else if (event.getValue().equals("AjoutCours")) {
+					changerVue(new AjoutCours());
+				}
+			}
+			
+		});
 	}
 	
 	/**
@@ -82,6 +106,7 @@ public class InterfaceProf extends VerticalPanel {
 		Item itemAccueil = new Item("Revenir à l'accueil");
 		itemAccueil.addListener(new BaseItemListenerAdapter() {
 			public void onClick(BaseItem item, EventObject e) {
+				History.newItem("Accueil");
 				changerVue(new AccueilProf());
 			}
 		});
@@ -91,6 +116,7 @@ public class InterfaceProf extends VerticalPanel {
 		Item itemAjouterProjet = new Item("Ajouter un projet");
 		itemAjouterProjet.addListener(new BaseItemListenerAdapter(){
 			public void onClick(BaseItem item, EventObject e) {
+				History.newItem("AjoutProjet");
 				changerVue(new AjoutProjet());
 			}
 		});
@@ -100,6 +126,7 @@ public class InterfaceProf extends VerticalPanel {
 		Item itemGererProjets = new Item("Afficher tous les projets");
 		itemGererProjets.addListener(new BaseItemListenerAdapter(){
 			public void onClick(BaseItem item, EventObject e) {
+				History.newItem("TousLesProjets");
 				changerVue(new TousLesProjet());
 			}
 		});
@@ -113,6 +140,7 @@ public class InterfaceProf extends VerticalPanel {
 		Item itemGererBranches = new Item("Gérer les cours");
 		itemGererBranches.addListener(new BaseItemListenerAdapter() {
 			public void onClick(BaseItem item, EventObject e) {
+				History.newItem("AjoutCours");
 				changerVue(new AjoutCours());
 			}
 		});

@@ -1,6 +1,7 @@
 package ch.heigvd.projectarchiver.client;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
@@ -21,11 +22,24 @@ public class PageProjet extends VerticalPanel {
 	 * @param infosProjet Les informations sur le projet 
 	 */
 	public PageProjet (Record infosProjet) {
+		Button retour = new Button("Retour");
 		this.infosProjet = infosProjet;
 		setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
 		setWidth("100%");
+		retour.setStyleName("margeSup20");
 		add(construireTitre());
 		add(construireInfos());
+		add(retour);
+		
+		// Action du bouton retour
+		retour.addListener(new ButtonListenerAdapter() {
+			public void onClick(Button button, EventObject e) {
+				if (e.getMouseButton() == 0)
+					History.back();
+			}
+		});
+		
+		History.newItem("Projet" + infosProjet.getAsString("@id"));
 	}
 	
 	/**

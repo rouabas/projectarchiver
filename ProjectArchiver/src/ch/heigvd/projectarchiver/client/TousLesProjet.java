@@ -5,6 +5,7 @@ import ch.heigvd.projectarchiver.client.utils.AjaxRequest;
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.Response;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.gwtext.client.data.FieldDef;
