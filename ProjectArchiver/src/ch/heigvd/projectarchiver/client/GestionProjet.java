@@ -1,20 +1,23 @@
 package ch.heigvd.projectarchiver.client;
 
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.gwtext.client.data.FieldDef;
+import com.gwtext.client.data.RecordDef;
+import com.gwtext.client.data.StringFieldDef;
 import com.gwtext.client.data.XmlReader;
 
 public class GestionProjet extends VerticalPanel {
 	
-	/*final private XmlReader reader = new XmlReader("projets", new RecordDef(  
+	final private XmlReader reader = new XmlReader("projets", new RecordDef(  
             new FieldDef[]{  
-                    new StringFieldDef("common"),  
-                    new StringFieldDef("botanical"),  
-                    new StringFieldDef("light"),  
-                    new FloatFieldDef("price"),  
-                    new DateFieldDef("availDate", "availability", "m/d/Y"),  
-                    new BooleanFieldDef("indoor")  
+            		new StringFieldDef("titre"),
+					new StringFieldDef("idBranche"),
+					new StringFieldDef("synopsis"),
+					new StringFieldDef("responsable"),
+					new StringFieldDef("synopsis"),
+					new StringFieldDef("ajoute_le"),
             }  
-    ));  */
+    ));
 
 	
 	/**
