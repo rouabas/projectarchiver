@@ -240,13 +240,7 @@ function ajouterProject ($titre, $idBranche, $synopsis, $responsables, $auteurs,
  */
 
 header('Content-Type: text/plain; charset=utf-8');
-
-if ($_GET['action'] == "all") {
-	echo listerTousLesProjets();
-	return;
-}
 	
-
 switch ($_POST['action']) {
 
 	case "ajouterProject" :
