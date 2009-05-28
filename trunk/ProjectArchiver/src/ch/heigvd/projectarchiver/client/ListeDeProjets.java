@@ -9,7 +9,6 @@ import com.gwtext.client.widgets.grid.ColumnConfig;
 import com.gwtext.client.widgets.grid.ColumnModel;
 import com.gwtext.client.widgets.grid.GridPanel;
 import com.gwtext.client.widgets.grid.Renderer;
-import com.gwtext.client.widgets.grid.event.GridCellListener;
 import com.gwtext.client.widgets.grid.event.GridCellListenerAdapter;
 
 public class ListeDeProjets extends GridPanel{

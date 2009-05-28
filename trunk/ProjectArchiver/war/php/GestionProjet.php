@@ -19,7 +19,7 @@
  */
 function ajouterProject ($titre, $idBranche, $synopsis, $responsables, $auteurs, $motsCle) {
 	
-	// On vérifie l'état de la session
+	// Cette méthode ne doit être accessible par que par un professeur
 	include "Session.php";
 	if (!$estLogue)
 		return "!session";
@@ -142,11 +142,6 @@ function ajouterProject ($titre, $idBranche, $synopsis, $responsables, $auteurs,
   * Liste tous les projets
   */
  function listerTousLesProjets() {
- 	// On vérifie l'état de la session
-	include "Session.php";
-	if (!$estLogue)
-		return "!session";
-	
 	error_reporting(0);
 	set_error_handler("traitementErreurs");
 	

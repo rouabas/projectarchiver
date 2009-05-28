@@ -14,7 +14,6 @@ import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.menu.BaseItem;
 import com.gwtext.client.widgets.menu.Item;
 import com.gwtext.client.widgets.menu.Menu;
-import com.gwtext.client.widgets.menu.event.BaseItemListener;
 import com.gwtext.client.widgets.menu.event.BaseItemListenerAdapter;
 
 public class InterfaceProf extends VerticalPanel {
