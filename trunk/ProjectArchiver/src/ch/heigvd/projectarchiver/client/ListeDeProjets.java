@@ -1,6 +1,7 @@
 package ch.heigvd.projectarchiver.client;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.History;
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.data.Record;
 import com.gwtext.client.data.Store;
