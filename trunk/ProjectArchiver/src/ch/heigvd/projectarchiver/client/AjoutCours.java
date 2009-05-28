@@ -28,14 +28,9 @@ public class AjoutCours extends Panel{
 	
 	private final TextField cours = new TextField();
 	// le flux XML
-	private final XmlReader xml = new XmlReader("projet", new RecordDef(
+	private final XmlReader xml = new XmlReader("cours", new RecordDef(
 			new FieldDef[]{
-					new StringFieldDef("titre"),
-					new StringFieldDef("idBranche"),
-					new StringFieldDef("synopsis"),
-					new StringFieldDef("responsable"),
-					new StringFieldDef("synopsis"),
-					new StringFieldDef("ajoute_le"),
+					new StringFieldDef("nom"),
 			}
 	));
 	
@@ -88,8 +83,7 @@ public class AjoutCours extends Panel{
 				}
 
 				public void onResponseReceived(Request request, Response response) {
-					//datas.loadXmlData(response.getText(), true);
-					MessageBox.alert(response.getText());
+					datas.loadXmlData(response.getText(), false);
 				}
 			});
 		} catch (RequestException e1) {
@@ -142,8 +136,9 @@ public class AjoutCours extends Panel{
 						MessageBox.alert("Le cours existe déjà");
 					// Réponse OK
 					else {
-						MessageBox.alert(response.getText());
-						//MessageBox.alert("Cours ajouté!");
+						getXml();
+						MessageBox.alert("Cours ajouté!");
+						
 					}		
 				}
 			});

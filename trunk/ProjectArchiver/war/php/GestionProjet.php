@@ -131,16 +131,33 @@ function ajouterProject ($titre, $idBranche, $synopsis, $responsables, $auteurs,
  	exit();
  }
  
+ function listerTousLesProjets() {
+ 	// On vérifie l'état de la session
+	/*include "Session.php";
+	if (!$estLogue)
+		return "!session";*/
+	
+	$file = file_get_contents ("../xml/projets.xml");
+	
+	return $file;
+	
+ }
+ 
 /**
  * Traitement des requêtes
  */
 
 header('Content-Type: text/plain; charset=utf-8');
+//header('Content-Type: text/xml; charset=utf-8');
 
 switch ($_POST['action']) {
 
 	case "ajouterProject" :
 		echo ajouterProject($_POST['titre'], $_POST['idBranche'], $_POST['synopsis'], $_POST['responsables'], $_POST['auteurs'], $_POST['motsCle'], $_POST['fichier']);
+		break;
+		
+	case "listerTousLesProjets" :
+		echo listerTousLesProjets();
 		break;
 }
 

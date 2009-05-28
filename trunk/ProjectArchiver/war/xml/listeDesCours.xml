@@ -15,4 +15,16 @@
   <cours id="5">
     <nom>fdsad</nom>
   </cours>
+  <cours id="6">
+    <nom>INF1</nom>
+  </cours>
+  <cours id="7">
+    <nom>INF2</nom>
+  </cours>
+  <cours id="8">
+    <nom>test</nom>
+  </cours>
+  <cours id="9">
+    <nom>GRE</nom>
+  </cours>
 </listeDesCours>
