@@ -9,11 +9,14 @@ public class ListeDeProjets extends GridPanel{
 	
 	// Description des colonnes de la liste
 	private final static ColumnModel columnModel = new ColumnModel(new ColumnConfig[]{  
-            new ColumnConfig("titre", "titre", 60, true),
-            new ColumnConfig("ajoute_le", "ajoute_le", 60, true),  
-            new ColumnConfig("auteurs", "auteurs", 80, true),
-            new ColumnConfig("motscle", "motscle", 345, true),
-            new ColumnConfig("responsables", "responsables", 345, true)
+            new ColumnConfig("titre", "titre", 100, true),
+            new ColumnConfig("branche", "branche", 80, true),  
+            new ColumnConfig("synopsis", "synopsis", 110, true),
+            new ColumnConfig("ajouteLe", "ajouteLe", 80, true),
+            new ColumnConfig("responsables", "responsables", 150, true),
+            new ColumnConfig("auteurs", "auteurs", 150, true),
+            new ColumnConfig("motscle", "motscle", 150, true),
+            new ColumnConfig("nomArchive", "nomArchive", 80, true),
     });
 
 	/**
@@ -24,5 +27,7 @@ public class ListeDeProjets extends GridPanel{
 	public ListeDeProjets(Store store, String titre) {
 		super(store, columnModel);
 		setTitle(titre);
+		setWidth("900px");
+		setHeight("400px");
 	}
 }

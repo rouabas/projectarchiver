@@ -94,7 +94,7 @@ function coursXML(){
 // But: Traiter les requêtes
 //////////////////////////////////////////////////////////////////
 
-header('Content-Type: text/xml; charset=utf-8');
+header('Content-Type: text/plain; charset=utf-8');
 
 switch ($_POST['action']) {
 
