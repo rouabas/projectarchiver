@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Fichier: projectManagement.php
+ * Fichier: GestionProjet.php
  * But    : Fonctions pour gérer l'authentification
  * Date   : 18 mai 2009
  */
@@ -244,7 +244,7 @@ header('Content-Type: text/plain; charset=utf-8');
 switch ($_POST['action']) {
 
 	case "ajouterProject" :
-		echo ajouterProject($_POST['titre'], $_POST['idBranche'], $_POST['synopsis'], $_POST['responsables'], $_POST['auteurs'], $_POST['motsCle'], $_POST['fichier']);
+		echo ajouterProject($_POST['titre'], $_POST['idBranche'], $_POST['synopsis'], $_POST['responsables'], $_POST['auteurs'], $_POST['motsCle']);
 		break;
 		
 	case "listerTousLesProjets" :
