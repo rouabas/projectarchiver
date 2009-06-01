@@ -308,10 +308,15 @@ switch ($_POST['action']) {
 	case "supprimerProject":
 		echo supprimerProject($_POST['id']);
 		break;
-		
+	
+	case "test":
+		echo "greg";
+		//echo $_FILES['fichier']['name'];
+		break;
+
 	case "modifierProject" :
 		echo modifierProject($_POST['id'],$_POST['titre'], $_POST['idBranche'], $_POST['synopsis'], $_POST['responsables'], $_POST['auteurs'], $_POST['motsCle']);
-		break;		
+		break;
 }
 
 ?>
