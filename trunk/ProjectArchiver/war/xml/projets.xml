@@ -107,4 +107,28 @@
     </motsCle>
     <nomArchive>Adresse MAC.rtf</nomArchive>
   </projet>
+  <projet id="8">
+    <titre>Volatil</titre>
+    <idBranche>1</idBranche>
+    <synopsis>Création de pages web à travers un site internet.</synopsis>
+    <date>01/06/2009</date>
+    <responsables>
+      <responsable/>
+      <responsable>Abdelali Guerid</responsable>
+      <responsable>Jean-Pierre Molliet</responsable>
+    </responsables>
+    <auteurs>
+      <auteur/>
+      <auteur>Grégory Moinat</auteur>
+      <auteur>Grégory Brissonnette</auteur>
+      <auteur>Christos Kornaros</auteur>
+    </auteurs>
+    <motsCle>
+      <motCle/>
+      <motCle>internet</motCle>
+      <motCle>développement</motCle>
+      <motCle>ajax</motCle>
+    </motsCle>
+    <nomArchive>Planification.pdf</nomArchive>
+  </projet>
 </projets>

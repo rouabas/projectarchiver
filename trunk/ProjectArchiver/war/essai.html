@@ -6,17 +6,11 @@
 
 <body>
 
-<FORM ENCTYPE="multipart/form-data" METHOD=POST ACTION="php/GestionProjet.php"><BR/>
-   <INPUT type="hidden" name="MAX_FILE_SIZE" value="100000" />
-   <INPUT type="hidden" value="ajouterProject" name="action"/><BR/>
-   titre<INPUT type="text" value="" name="titre"/><BR/>
-   idBranche<INPUT type="text" value="" name="idBranche"/><BR/>
-   synopsis<INPUT type="text" value="" name="synopsis"/><BR/>
-   responsables<INPUT type="text" value="" name="responsables"/><BR/>
-   auteurs<INPUT type="text" value="" name="auteurs"/><BR/>
-   motsCle<INPUT type="text" value="" name="motsCle"/><BR/>
-   motsCle<INPUT type="file" value="" name="fichier"/><BR/>
-   <INPUT type="submit" name="ok">
+<FORM ENCTYPE='multipart/form-data' METHOD=POST ACTION='php/GestionProjet.php'>
+   <INPUT type='hidden' name='MAX_FILE_SIZE' value='100000' />
+   <INPUT type='hidden' value='test' name='action'/><BR/>
+   motsCle<INPUT type='file' value='' name='fichier'/><BR/>
+   <INPUT type='submit' name='ok'>
 </FORM>
 
 </body>
