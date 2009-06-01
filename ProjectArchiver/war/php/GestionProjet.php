@@ -113,10 +113,7 @@ function ajouterProject ($id, $titre, $idBranche, $synopsis, $responsables, $aut
 	
 	// Nom de l'archive
 	$elemArchive = $document->createElement("nomArchive");
-	if($id=="")
-		$valeurArchive = $document->createTextNode($_FILES['fichier']['name']);
-	else
-		$valeurArchive = $document->createTextNode($nomArchive);
+	$valeurArchive = $document->createTextNode($nomArchive);	
 	$elemArchive->appendChild($valeurArchive);
 	$nouveauProjet->appendChild($elemArchive);
 	
@@ -124,15 +121,10 @@ function ajouterProject ($id, $titre, $idBranche, $synopsis, $responsables, $aut
 	$racine = $document->getElementsByTagName("projets")->item(0);
 	$racine->appendChild($nouveauProjet);
 	
+	
+	
 	// On enregistre le document
 	$document->save("../xml/projets.xml");
-	
-	if($id==""){
-		// Création du dossier du projet et upload
-		mkdir("../projectFiles/" . $id, 0777, true);
-		$emplacementFichier = "../projectFiles/" . $id . "/" . $_FILES['fichier']['name'];
-		move_uploaded_file($_FILES['fichier']['tmp_name'], $emplacementFichier);
-	}
 	
 	return "!ok";
 }
@@ -324,17 +316,46 @@ function modifierProject ($id, $titre, $idBranche, $synopsis, $responsables, $au
 	
 	return "ok";
 }
+
+/**
+ * Permet d'uploader un fichier de projet
+ * @param l'id du projet
+ * @return !ok si l'upload a réussi'
+ */
+function uploadFichier() {
+	$document = new DOMDocument();
+	// Supprime l'indentation avant la lecture
+	$document->preserveWhiteSpace = false;
+	$document->load("../xml/projets.xml");
+	$xpath = new DOMXPath($document);
+		// Récupération des ids des projets
+		$ids = $xpath->evaluate("/projets/projet/@id");
+		// Sélection du plus grand id
+		$id = 0;
+		for ($i = 0; $i < $ids->length; $i++)
+			if ((int)$ids->item($i)->nodeValue > $id)
+				$id = (int)$ids->item($i)->nodeValue;
+		// On ajoute 1 pour créer le nouvel id
+		$id++;
+	
+	// Création du dossier du projet et upload
+	mkdir("../projectFiles/" . $id, 0777, true);
+	$emplacementFichier = "../projectFiles/" . $id . "/" . $_FILES['fichier']['name'];
+	move_uploaded_file($_FILES['fichier']['tmp_name'], $emplacementFichier);
+	
+	return "!ok";
+}
  
 /**
  * Traitement des requêtes
  */
 
 header('Content-Type: text/plain; charset=utf-8');
-	
-switch ($_GET['action']) {
+
+switch ($_POST['action']) {
 
 	case "ajouterProject" :
-		echo ajouterProject($_POST['id'],$_POST['titre'], $_POST['idBranche'], $_POST['synopsis'], $_POST['responsables'], $_POST['auteurs'], $_POST['motsCle']);
+		echo ajouterProject($_POST['id'],$_POST['titre'], $_POST['idBranche'], $_POST['synopsis'], $_POST['responsables'], $_POST['auteurs'], $_POST['motsCle'], $_POST['nomArchive']);
 		break;
 		
 	case "listerTousLesProjets" :
@@ -345,9 +366,8 @@ switch ($_GET['action']) {
 		echo supprimerProject($_POST['id']);
 		break;
 	
-	case "test":
-		echo "greg";
-		//echo $_FILES['fichier']['name'];
+	case "uploadFichier":
+		echo uploadFichier();
 		break;
 
 	case "modifierProject" :

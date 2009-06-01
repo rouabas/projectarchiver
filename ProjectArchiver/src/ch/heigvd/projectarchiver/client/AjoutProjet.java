@@ -4,6 +4,8 @@ import ch.heigvd.projectarchiver.client.utils.AjaxRequest;
 
 import com.gwtext.client.widgets.Button;
 import com.gwtext.client.widgets.MessageBox;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.RequestException;
@@ -17,6 +19,7 @@ import com.google.gwt.user.client.ui.Hidden;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextArea;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
 import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteHandler;
@@ -39,7 +42,7 @@ public class AjoutProjet extends VerticalPanel {
 	private final TextArea motsCles = new TextArea();
 	private final TextArea synopsis = new TextArea();
 	
-	private final FormPanel form = new FormPanel();
+	private FormPanel form = new FormPanel();
 	private final FileUpload fichier = new FileUpload();
 	
 	private final int LARGEURTEXTAREA = 300;
@@ -174,16 +177,10 @@ public class AjoutProjet extends VerticalPanel {
 		synopsis.setWidth(String.valueOf(LARGEURTEXTAREA));
 		formulaire.setWidget(5, 1, synopsis);
 		
-		
-
-		
-		//formulaire.setWidget(6, 1, fichier);
-		
-		
 	    form.setEncoding(FormPanel.ENCODING_MULTIPART);
 	    form.setMethod(FormPanel.METHOD_POST);
-		form.setAction("php/GestionProjet.php");
-		form.add(new Hidden("action", "test"));
+		form.setAction(GWT.getModuleBaseURL() + "../php/GestionProjet.php");
+	
 	    
 		Button btnEnregistrer = new Button("Enregistrer");
 		btnEnregistrer.addListener(new ButtonListenerAdapter(){
@@ -195,31 +192,30 @@ public class AjoutProjet extends VerticalPanel {
 					MessageBox.alert("Erreur", "Certaines infos n'ont pas été remplies");
 				else{
 					form.submit();
-					//enregistrer();
+					enregistrer();
 				}
 			}
 		});
 
 		fichier.setName("fichier");
 	    VerticalPanel formPanel = new VerticalPanel();
+	    
+	    formPanel.add(new Hidden("action", "uploadFichier"));
 	    formPanel.add(fichier);
 	    formPanel.add(btnEnregistrer);
-	    form.setWidget(formPanel);
+	    form.setWidget(formPanel);	    
 	    
-	
 	    form.addSubmitCompleteHandler(new SubmitCompleteHandler() {
 			@Override
 			public void onSubmitComplete(SubmitCompleteEvent event) {
-				//MessageBox.alert(event.getResults());
-				enregistrer();
+				if (event.getResults().trim().equals("!ok"))
+					enregistrer();
+				else
+					MessageBox.alert(event.getResults());
 			}
 	    });
-
-	    
-	    
+	
 	    formulaire.setWidget(6, 1, form);
-		
-		//formulaire.setWidget(7, 1, btnEnregistrer);
 		
 		panelProjet.add(formulaire);
 		add(panelProjet);
@@ -227,6 +223,7 @@ public class AjoutProjet extends VerticalPanel {
 
 	private void enregistrer(){
 		AjaxRequest requete = new AjaxRequest("php/GestionProjet.php");
+		String[] nomArchiveSepare = fichier.getFilename().split("/");
 		requete.addParameter("action", "ajouterProject");
 		requete.addParameter("titre", titre.getValueAsString());
 		requete.addParameter("idBranche", "1");
@@ -234,6 +231,7 @@ public class AjoutProjet extends VerticalPanel {
 		requete.addParameter("responsables", responsable.getText());
 		requete.addParameter("auteurs", auteurs.getText());
 		requete.addParameter("motsCle", motsCles.getText());
+		requete.addParameter("nomArchive", nomArchiveSepare[nomArchiveSepare.length-1]);
 		try {
 			requete.send(new RequestCallback() {
 
@@ -242,7 +240,8 @@ public class AjoutProjet extends VerticalPanel {
 				}
 
 				public void onResponseReceived(Request request, Response response) {
-					MessageBox.alert(response.getText());				
+					MessageBox.alert("Votre projet a été ajouté avec succès!");
+					InterfaceProf.getInstance().changerVue(new AccueilProf());
 				}
 			});
 		} catch (RequestException e1) {
