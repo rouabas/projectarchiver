@@ -236,6 +236,47 @@ function ajouterProject ($titre, $idBranche, $synopsis, $responsables, $auteurs,
  }
  
 /**
+ * Fonction pour supprimer un projet en fonction de son id
+ * retourne !ok si le projet a bien été supprimé et !not found
+ * si le projet n'a pas été trouvé
+ */
+function supprimerProject($id){
+
+	// Cette méthode ne doit être accessible par que par un professeur
+	include "Session.php";
+	if (!$estLogue)
+		return "!session";
+	
+	// On gère les erreurs nous même (DOM ne lève pas des exceptions mais des Warnings)
+	//error_reporting(0);
+	set_error_handler("traitementErreurs");
+
+	$document = new DOMDocument();
+	// Supprime l'indentation avant la lecture
+	$document->preserveWhiteSpace = false;
+	$document->load("../xml/projets.xml");
+	// Réindente le fichier
+	$document->formatOutput = true;
+	
+	$projets = $document->documentElement;
+	
+	// Récupération du projet ayant l'id concerne
+	$xpath = new DOMXPath($document);
+	$projet = $xpath->query("/projets/projet[@id='".$id."']");
+	$projetSupprime = null;
+	foreach ($projet as $resultat) 
+	   $projetSupprime = $projets->removeChild($resultat);
+
+	if($projetSupprime == null)
+		return "!not found";
+		
+	// On enregistre le document
+	$document->save("../xml/projets.xml");	
+	
+	return "!ok";
+}
+ 
+/**
  * Traitement des requêtes
  */
 
@@ -249,6 +290,10 @@ switch ($_POST['action']) {
 		
 	case "listerTousLesProjets" :
 		echo listerTousLesProjets();
+		break;
+		
+	case "supprimerProject":
+		echo supprimerProject($_POST['id']);
 		break;
 }
 
