@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Hidden;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextArea;
@@ -181,7 +182,9 @@ public class AjoutProjet extends VerticalPanel {
 		
 	    form.setEncoding(FormPanel.ENCODING_MULTIPART);
 	    form.setMethod(FormPanel.METHOD_POST);
-		
+		form.setAction("php/GestionProjet.php");
+		form.add(new Hidden("action", "test"));
+	    
 		Button btnEnregistrer = new Button("Enregistrer");
 		btnEnregistrer.addListener(new ButtonListenerAdapter(){
 			public void onClick(Button button, EventObject e){
@@ -192,7 +195,7 @@ public class AjoutProjet extends VerticalPanel {
 					MessageBox.alert("Erreur", "Certaines infos n'ont pas été remplies");
 				else{
 					form.submit();
-					enregistrer();
+					//enregistrer();
 				}
 			}
 		});
@@ -207,6 +210,7 @@ public class AjoutProjet extends VerticalPanel {
 	    form.addSubmitCompleteHandler(new SubmitCompleteHandler() {
 			@Override
 			public void onSubmitComplete(SubmitCompleteEvent event) {
+				//MessageBox.alert(event.getResults());
 				enregistrer();
 			}
 	    });
