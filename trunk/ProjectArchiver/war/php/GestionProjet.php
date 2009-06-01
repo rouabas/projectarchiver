@@ -17,12 +17,12 @@
  * @return "!ok" si tout s'est bien passé, "!error" sinon. Renvoie "!session" si
  * 			l'utilisateur n'a plus de session
  */
-function ajouterProject ($id, $titre, $idBranche, $synopsis, $responsables, $auteurs, $motsCle) {
+function ajouterProject ($id, $titre, $idBranche, $synopsis, $responsables, $auteurs, $motsCle, $nomArchive) {
 	
 	// Cette méthode ne doit être accessible par que par un professeur
-	include "Session.php";
-	if (!$estLogue)
-		return "!session";
+//	include "Session.php";
+//	if (!$estLogue)
+//		return "!session";
 	
 	// On gère les erreurs nous même (DOM ne lève pas des exceptions mais des Warnings)
 	//error_reporting(0);
@@ -113,7 +113,10 @@ function ajouterProject ($id, $titre, $idBranche, $synopsis, $responsables, $aut
 	
 	// Nom de l'archive
 	$elemArchive = $document->createElement("nomArchive");
-	$valeurArchive = $document->createTextNode($_FILES['fichier']['name']);
+	if($id=="")
+		$valeurArchive = $document->createTextNode($_FILES['fichier']['name']);
+	else
+		$valeurArchive = $document->createTextNode($nomArchive);
 	$elemArchive->appendChild($valeurArchive);
 	$nouveauProjet->appendChild($elemArchive);
 	
@@ -124,10 +127,12 @@ function ajouterProject ($id, $titre, $idBranche, $synopsis, $responsables, $aut
 	// On enregistre le document
 	$document->save("../xml/projets.xml");
 	
-	// Création du dossier du projet et upload
-	mkdir("../projectFiles/" . $id, 0777, true);
-	$emplacementFichier = "../projectFiles/" . $id . "/" . $_FILES['fichier']['name'];
-	move_uploaded_file($_FILES['fichier']['tmp_name'], $emplacementFichier);
+	if($id==""){
+		// Création du dossier du projet et upload
+		mkdir("../projectFiles/" . $id, 0777, true);
+		$emplacementFichier = "../projectFiles/" . $id . "/" . $_FILES['fichier']['name'];
+		move_uploaded_file($_FILES['fichier']['tmp_name'], $emplacementFichier);
+	}
 	
 	return "!ok";
 }
@@ -245,9 +250,9 @@ function ajouterProject ($id, $titre, $idBranche, $synopsis, $responsables, $aut
 function supprimerProject($id){
 
 	// Cette méthode ne doit être accessible par que par un professeur
-	include "Session.php";
-	if (!$estLogue)
-		return "!session";
+//	include "Session.php";
+//	if (!$estLogue)
+//		return "!session";
 	
 	// On gère les erreurs nous même (DOM ne lève pas des exceptions mais des Warnings)
 	//error_reporting(0);
@@ -279,14 +284,45 @@ function supprimerProject($id){
 }
 
 /**
+ * retourne le nom de l'archive du projet donné par son id
+ */
+function getNomArchive($id){
+	// Cette méthode ne doit être accessible par que par un professeur
+//	include "Session.php";
+//	if (!$estLogue)
+//		return "!session";
+	
+	// On gère les erreurs nous même (DOM ne lève pas des exceptions mais des Warnings)
+	//error_reporting(0);
+	set_error_handler("traitementErreurs");
+
+	$document = new DOMDocument();
+	// Supprime l'indentation avant la lecture
+	$document->preserveWhiteSpace = false;
+	$document->load("../xml/projets.xml");
+	// Réindente le fichier
+	$document->formatOutput = true;
+	
+	// Récupération du projet ayant l'id concerne
+	$xpath = new DOMXPath($document);
+	$noms = $xpath->query("/projets/projet[@id='".$id."']/nomArchive");
+	
+	foreach ($noms as $nom) 
+	   return $nom->nodeValue;
+}
+
+/**
  * Fonction pour modifier un projet donné
  */
 function modifierProject ($id, $titre, $idBranche, $synopsis, $responsables, $auteurs, $motsCle) {
+	$nom = getNomArchive($id);
+
 	// on commence par supprimer le projet
 	supprimerProject($id);
 	// puis on le recréé avec les nouvelles infos
-	ajouterProject ($id, $titre, $idBranche, $synopsis, $responsables, $auteurs, $motsCle);
-	return "!ok";
+	ajouterProject ($id, $titre, $idBranche, $synopsis, $responsables, $auteurs, $motsCle, $nom);
+	
+	return "ok";
 }
  
 /**
@@ -295,7 +331,7 @@ function modifierProject ($id, $titre, $idBranche, $synopsis, $responsables, $au
 
 header('Content-Type: text/plain; charset=utf-8');
 	
-switch ($_POST['action']) {
+switch ($_GET['action']) {
 
 	case "ajouterProject" :
 		echo ajouterProject($_POST['id'],$_POST['titre'], $_POST['idBranche'], $_POST['synopsis'], $_POST['responsables'], $_POST['auteurs'], $_POST['motsCle']);
@@ -315,7 +351,7 @@ switch ($_POST['action']) {
 		break;
 
 	case "modifierProject" :
-		echo modifierProject($_POST['id'],$_POST['titre'], $_POST['idBranche'], $_POST['synopsis'], $_POST['responsables'], $_POST['auteurs'], $_POST['motsCle']);
+		echo modifierProject($_GET['id'],$_GET['titre'], $_GET['idBranche'], $_GET['synopsis'], $_GET['responsables'], $_GET['auteurs'], $_GET['motsCle']);
 		break;
 }
 
