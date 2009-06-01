@@ -17,7 +17,7 @@
  * @return "!ok" si tout s'est bien passé, "!error" sinon. Renvoie "!session" si
  * 			l'utilisateur n'a plus de session
  */
-function ajouterProject ($titre, $idBranche, $synopsis, $responsables, $auteurs, $motsCle) {
+function ajouterProject ($id, $titre, $idBranche, $synopsis, $responsables, $auteurs, $motsCle) {
 	
 	// Cette méthode ne doit être accessible par que par un professeur
 	include "Session.php";
@@ -35,17 +35,19 @@ function ajouterProject ($titre, $idBranche, $synopsis, $responsables, $auteurs,
 	// Réindente le fichier
 	$document->formatOutput = true;
 	
-	// Récupération de l'id le plus grand (pour générer l'id de ce projet)
-	$xpath = new DOMXPath($document);
-	// Récupération des ids des projets
-	$ids = $xpath->evaluate("/projets/projet/@id");
-	// Sélection du plus grand id
-	$id = 0;
-	for ($i = 0; $i < $ids->length; $i++)
-		if ((int)$ids->item($i)->nodeValue > $id)
-			$id = (int)$ids->item($i)->nodeValue;
-	// On ajoute 1 pour créer le nouvel id
-	$id++;
+	if($id==""){
+		// Récupération de l'id le plus grand (pour générer l'id de ce projet)
+		$xpath = new DOMXPath($document);
+		// Récupération des ids des projets
+		$ids = $xpath->evaluate("/projets/projet/@id");
+		// Sélection du plus grand id
+		$id = 0;
+		for ($i = 0; $i < $ids->length; $i++)
+			if ((int)$ids->item($i)->nodeValue > $id)
+				$id = (int)$ids->item($i)->nodeValue;
+		// On ajoute 1 pour créer le nouvel id
+		$id++;
+	}
 	
 	// Création de éléments composants le projet
 	$nouveauProjet = $document->createElement("projet");
@@ -275,6 +277,17 @@ function supprimerProject($id){
 	
 	return "!ok";
 }
+
+/**
+ * Fonction pour modifier un projet donné
+ */
+function modifierProject ($id, $titre, $idBranche, $synopsis, $responsables, $auteurs, $motsCle) {
+	// on commence par supprimer le projet
+	supprimerProject($id);
+	// puis on le recréé avec les nouvelles infos
+	ajouterProject ($id, $titre, $idBranche, $synopsis, $responsables, $auteurs, $motsCle);
+	return "!ok";
+}
  
 /**
  * Traitement des requêtes
@@ -285,7 +298,7 @@ header('Content-Type: text/plain; charset=utf-8');
 switch ($_POST['action']) {
 
 	case "ajouterProject" :
-		echo ajouterProject($_POST['titre'], $_POST['idBranche'], $_POST['synopsis'], $_POST['responsables'], $_POST['auteurs'], $_POST['motsCle']);
+		echo ajouterProject($_POST['id'],$_POST['titre'], $_POST['idBranche'], $_POST['synopsis'], $_POST['responsables'], $_POST['auteurs'], $_POST['motsCle']);
 		break;
 		
 	case "listerTousLesProjets" :
@@ -295,6 +308,10 @@ switch ($_POST['action']) {
 	case "supprimerProject":
 		echo supprimerProject($_POST['id']);
 		break;
+		
+	case "modifierProject" :
+		echo modifierProject($_POST['id'],$_POST['titre'], $_POST['idBranche'], $_POST['synopsis'], $_POST['responsables'], $_POST['auteurs'], $_POST['motsCle']);
+		break;		
 }
 
 ?>
