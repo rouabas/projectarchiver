@@ -182,6 +182,7 @@ public class Authentification extends VerticalPanel {
 		
 		RootPanel.get().clear();
 		RootPanel.get().add(this);
+		InterfaceProf.supprimerInstance();
 		
 	}
 	

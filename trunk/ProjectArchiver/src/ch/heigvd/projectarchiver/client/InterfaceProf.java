@@ -75,6 +75,15 @@ public class InterfaceProf extends VerticalPanel {
 	}
 	
 	/**
+	 * Permet de détruire l'instance de l'interface (qui est utilisée
+	 * pour savoir si une session prof est ouverte. L'instance doit
+	 * donc être supprimée lors de la fermeture de session)
+	 */
+	public static void supprimerInstance () {
+		instance = null;
+	}
+	
+	/**
 	 * @param vue La vue que l'on désire afficher
 	 */
 	public void changerVue (Widget vue) {
