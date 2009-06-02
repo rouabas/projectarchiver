@@ -4,11 +4,11 @@
 	
 	<projet id="1">
 		
-		<ajouteLe>2009-06-24</ajouteLe>
+
 		<titre>Project Archiver</titre>
 		<idBranche>1</idBranche>
 		<synopsis>C'est l'un des plus gand projet jamais réalisé à la HEIG</synopsis>
-		
+		<ajouteLe>2009-06-24</ajouteLe>
 		<responsables>
 			<responsable>Eric LeFrancois</responsable>
 		</responsables>
@@ -29,11 +29,11 @@
 	</projet>
 	
 	<projet id="2">
-		<ajouteLe>2008-03-18</ajouteLe>
+		
 		<titre>Tron Cycle</titre>
 		<idBranche>2</idBranche>
-		<synopsis>Anotherone greg'fabulous idea</synopsis>
-		
+		<synopsis>Anotherone gregs'fabulous idea</synopsis>
+		<ajouteLe>2008-03-18</ajouteLe>
 		<responsables>
 			<responsable>Eric LeFrancois</responsable>
 		</responsables>

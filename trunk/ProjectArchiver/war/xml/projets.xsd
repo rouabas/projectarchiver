@@ -6,7 +6,6 @@
                 <xs:element name="projet">
                     <xs:complexType>
                         <xs:sequence maxOccurs="unbounded">
-                            <xs:element name="ajouteLe" type="xs:date"/>
                             <xs:element name="titre" type="xs:string"/>
                             <xs:element name="idBranche" type="xs:integer"/>
                             <xs:element name="synopsis" type="xs:string"/>
