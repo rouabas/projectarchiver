@@ -47,6 +47,12 @@
 			</td>
 		</tr>	
 		
+		
+		<tr>
+			<td class="Etiquette"><xsl:text>Ajouté le : </xsl:text></td>
+			<td class="Contenu"><xsl:apply-templates select="dateAjout"/></td>
+		</tr>
+		
 		<tr>
 			<td class="Etiquette"><xsl:text>Auteur : </xsl:text></td>
 			<td class="Contenu"><xsl:apply-templates select="auteurs"/></td>
@@ -94,6 +100,11 @@
 			
 		</tr>	
 		
+	</xsl:template>
+	
+	
+	<xsl:template match="dateAjout">
+		<xsl:value-of select="."/>
 	</xsl:template>
 	
 	<xsl:template match="auteur|responsables">
