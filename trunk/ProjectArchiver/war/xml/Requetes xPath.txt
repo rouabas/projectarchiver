@@ -1,0 +1,64 @@
+Selectionner les projets qui ont été réalisé dans le cadre d'un cours donné
+(soit en toute lettre soit par id(pour adaptation au code))
+----------------------------------------------------------------------------------------
+for $p in doc("projets.xml") //projet,
+	$c in doc("listeDesCours.xml")//cours
+where 	$p/idBranche = $c/@id
+and		$c/nom ="BDR" 
+or		$c/@id = 1 -- recherche par id
+return
+	<resultat>
+		{ $p/titre }
+	</resultat>
+----------------------------------------------------------------------------------------
+Selectionner les projets qui ont été données par un prof durant une certaine année
+----------------------------------------------------------------------------------------
+for $p in doc("projets.xml") //projet
+where 	contains($p//responsable, "Moliet")
+and  contains($p/dateAjout,"2008")
+return
+	<resultat>
+		{ $p/titre }
+	</resultat>
+----------------------------------------------------------------------------------------
+Selectionner tous les projets auxquels un auteur à participé
+----------------------------------------------------------------------------------------
+for $p in doc("projets.xml") //projet
+where 	contains($p//auteur, "Greg")
+return
+	<resultat>
+		{ $p/titre }
+	</resultat>
+----------------------------------------------------------------------------------------
+Selectionner les projets qui contiennent un mot clé dans la liste des mots clé
+----------------------------------------------------------------------------------------
+for $p in doc("projets.xml") //projet
+where 	contains($p//motCle, "Inovation")
+return
+	<resultat>
+		{ $p/titre }
+	</resultat>
+----------------------------------------------------------------------------------------
+Lister chaque profs avec toutes les branches qu'ils ont donnés
+----------------------------------------------------------------------------------------
+for $res in distinct-values(document("projets.xml")//responsable)
+return
+	<resultat>
+		<prof>
+			{$res}
+		</prof>	
+	
+		{
+		for $id in document("projets.xml")//idBranche[..//responsable=$res],
+			$c in doc("listeDesCours.xml")//cours
+		where 	$id = $c/@id
+		
+		return
+		
+			<cours>
+				{$c/nom}
+			</cours>
+		
+		}
+	</resultat>
+----------------------------------------------------------------------------------------	
