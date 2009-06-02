@@ -147,7 +147,7 @@ public class PageProjet extends VerticalPanel {
 								// La suppression est faite si le professeur confirme la suppression
 								if (btnID.equals("yes")) {
 									AjaxRequest request = new AjaxRequest("php/GestionProjet.php");
-									request.addParameter("action", "supprimerProject");
+									request.addParameter("action", "supprimerProjet");
 									request.addParameter("id", infosProjet.getAsString("@id"));
 									try {
 										request.send(new RequestCallback() {
@@ -157,8 +157,15 @@ public class PageProjet extends VerticalPanel {
 											}
 
 											public void onResponseReceived( Request request, Response response) {
-												InterfaceProf.getInstance().changerVue(new AccueilProf());
-												MessageBox.alert("Le projet a été supprimé");
+												if (response.getText().trim().equals("!ok")) {
+													InterfaceProf.getInstance().changerVue(new AccueilProf());
+													MessageBox.alert("Le projet a été supprimé");
+												}
+												else {
+													MessageBox.alert(response.getText());
+													//MessageBox.alert("Une erreur est survenue lors de la suppression. Veuillez réessayer");
+												}
+												
 											}
 											
 										});
