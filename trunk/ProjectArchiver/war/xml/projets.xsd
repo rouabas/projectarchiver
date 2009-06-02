@@ -33,7 +33,7 @@
                             </xs:element>
                             <xs:element name="nomArchive" type="xs:string"/>
                         </xs:sequence>
-                        <xs:attribute name="id"/>
+                        <xs:attribute name="id" type="xs:ID"/>
                     </xs:complexType>
                 </xs:element>
             </xs:sequence>
