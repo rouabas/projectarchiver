@@ -50,7 +50,7 @@
 		
 		<tr>
 			<td class="Etiquette"><xsl:text>Ajouté le : </xsl:text></td>
-			<td class="Contenu"><xsl:apply-templates select="dateAjout"/></td>
+			<td class="Contenu"><xsl:apply-templates select="ajouteLe"/></td>
 		</tr>
 		
 		<tr>
@@ -103,7 +103,7 @@
 	</xsl:template>
 	
 	
-	<xsl:template match="dateAjout">
+	<xsl:template match="ajouteLe">
 		<xsl:value-of select="."/>
 	</xsl:template>
 	
