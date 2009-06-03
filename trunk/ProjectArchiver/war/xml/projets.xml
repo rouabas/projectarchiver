@@ -3,26 +3,26 @@
 <projets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="projets.xsd">
 	
 	<projet id="1">
-		
 
 		<titre>Project Archiver</titre>
-		<idBranche>1</idBranche>
+		<idBranche>2</idBranche>
 		<synopsis>C'est l'un des plus gand projet jamais réalisé à la HEIG</synopsis>
-		<ajouteLe>02/06/2009</ajouteLe>
+		<ajouteLe>2009-06-02</ajouteLe>
 		<responsables>
 			<responsable>Eric LeFrancois</responsable>
 		</responsables>
 		
 		<auteurs>
-			<auteur>Greg One</auteur>
-			<auteur>Greg Two</auteur>	
+			<auteur>Grégory One</auteur>
+			<auteur>Grégory Two</auteur>	
 			<auteur>Thomas Jordan</auteur>	
 		</auteurs>
 		
 		<motsCle>
 			<motCle>Idée géniale</motCle>
 			<motCle>Inovation</motCle>
-			<motCle>Greg</motCle>
+			<motCle>Archiver</motCle>
+			<motCle>Awsome</motCle>
 		</motsCle>
 		<nomArchive>project_Archiver_megahit.tar.bz2</nomArchive>
 
@@ -31,7 +31,7 @@
 	<projet id="2">
 		
 		<titre>Tron Cycle</titre>
-		<idBranche>2</idBranche>
+		<idBranche>4</idBranche>
 		<synopsis>Anotherone gregs'fabulous idea</synopsis>
 		<ajouteLe>2008-03-18</ajouteLe>
 		<responsables>
@@ -53,6 +53,85 @@
 		</motsCle>
 		<nomArchive>proj_gen_12.12.2008_troncycle.zip</nomArchive>
 
+	</projet>
+	
+	<projet id="3">
+		
+		<titre>AlloBiblio</titre>
+		<idBranche>3</idBranche>
+		<synopsis>Site comme allociné(mais mieux). Au lieu de parler de filmes on y parle de livres.</synopsis>
+		<ajouteLe>2009-06-12</ajouteLe>
+		<responsables>
+			<responsable>Eric LeFrancois</responsable>
+		</responsables>
+		
+		<auteurs>
+			<auteur>Christos Kornaros</auteur>
+			<auteur>Grégory Brissonnette</auteur>
+			<auteur>Thomas Jordan</auteur>	
+		</auteurs>
+		
+		<motsCle>
+			<motCle>allociné</motCle>
+			<motCle>livre</motCle>
+			<motCle>rails</motCle>
+			<motCle>ror</motCle>
+			<motCle>ruby</motCle>
+		</motsCle>
+		<nomArchive>[web]alloBiblio1.0.zip</nomArchive>
+	</projet>
+	
+	
+	<projet id="4">
+		
+		<titre>Chat virtuel 3D</titre>
+		<idBranche>5</idBranche>
+		<synopsis>Application réalisée avec XNA, qui permet de se déplacer dans un monde virtuel et de chatter avec 8 autres joueurs</synopsis>
+		<ajouteLe>2009-01-20</ajouteLe>
+		<responsables>
+			<responsable>Jean-Pierre Molliet</responsable>
+			<responsable>Abdelali Guerride</responsable>
+		</responsables>
+		
+		<auteurs>
+			<auteur>Christophe Lugon</auteur>
+			<auteur>Tristan Rouiller</auteur>
+			<auteur>Lionel Erard</auteur>	
+			<auteur>Julien LeGlaunec</auteur>	
+			<auteur>Bertran Zang-Ondua</auteur>	
+			<auteur>Thomas Jordan</auteur>	
+		</auteurs>
+		<motsCle>
+			<motCle>chat</motCle>
+			<motCle>second life</motCle>
+			<motCle>xna</motCle>
+			<motCle>3D</motCle>
+		</motsCle>
+		<nomArchive>ChatVirtuel - PDG.zip</nomArchive>
+	</projet>
+	
+	<projet id="5">
+		
+		<titre>Gestion d'une societé de gymn</titre>
+		<idBranche>1</idBranche>
+		<synopsis>8	Application web pour gérer une société de gymnastique permettant de gérer les membres, gérer les plannings d'entrainement et les absences aux entrainements. Permet aussi de noter les résultats des concours et de classer les gymnastes en interne</synopsis>
+		<ajouteLe>2008-04-15</ajouteLe>
+		<responsables>
+			<responsable>Nastaran Fatemi</responsable>
+		</responsables>
+		
+		<auteurs>
+			<auteur>Grégory Brissonnette</auteur>
+			<auteur>Thomas Jordan</auteur>	
+		</auteurs>
+			
+		<motsCle>
+			<motCle>gymnastique</motCle>
+			<motCle>mySQL</motCle>
+			<motCle>requêtes</motCle>
+			<motCle>societé</motCle>
+		</motsCle>
+		<nomArchive>[BDR] Projet_Societé_Gymnastique.rar</nomArchive>
 	</projet>
 	
 </projets>
