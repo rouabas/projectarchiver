@@ -145,7 +145,38 @@ function listerTousLesProjets() {
 	// Récupération de tous les projets avec XPATH
 	$xpath = new DOMXPath($document);
 	$projets = $xpath->evaluate("/projets/projet");
+	return obtenirChaineXMLProjets($projets);
+}
 
+/**
+ * Filtre tous les projets
+ */
+function filtrerLesProjets($titre, $auteur, $cours, $responsable, $motCle, $annee) {
+		
+	error_reporting(0);
+	set_error_handler("traitementErreurs");
+
+	$document = new DOMDocument();
+	$document->preserveWhiteSpace = false;
+	$document->load("../xml/projets.xml");
+
+	// Récupération de tous les projets avec XPATH
+	$xpath = new DOMXPath($document);
+	
+	$projets = $xpath->evaluate('/projets/projet[
+										contains(./titre, "' . $titre . '")
+									and
+										contains(.//auteur, "'. $auteur .'")	
+									and
+										contains(./idBranche, "'. $cours .'")
+									and
+										contains(.//responsable, "'. $responsable .'")
+									and
+										contains(.//motCle, "'. $motCle .'")
+									and
+										contains(./ajouteLe, "'. $annee .'")
+												]');
+									
 	return obtenirChaineXMLProjets($projets);
 }
 
@@ -370,6 +401,12 @@ switch ($_POST['action']) {
 	case "listerTousLesProjets" :
 		header('Content-Type: text/plain; charset=utf-8');
 		echo listerTousLesProjets();
+		break;
+		
+	case "filtrerLesProjets" :
+		header('Content-Type: text/plain; charset=utf-8');
+		
+		echo filtrerLesProjets($_POST['f_titre'], $_POST['f_auteur'], $_POST['f_cours'], $_POST['f_responsable'], $_POST['f_motCle'], $_POST['f_annee']);
 		break;
 
 	case "supprimerProjet" :
