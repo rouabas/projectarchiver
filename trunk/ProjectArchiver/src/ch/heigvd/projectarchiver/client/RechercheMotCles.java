@@ -2,6 +2,7 @@ package ch.heigvd.projectarchiver.client;
 
 import ch.heigvd.projectarchiver.client.utils.AjaxRequest;
 
+import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.Response;
@@ -10,6 +11,7 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.gwtext.client.core.EventCallback;
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.data.FieldDef;
 import com.gwtext.client.data.RecordDef;
@@ -57,6 +59,15 @@ public class RechercheMotCles extends VerticalPanel {
 			}
 		});
 		
+		// Action sur le champs de la branche
+		txtMotsCles.addKeyPressListener(new EventCallback() {
+
+			public void execute(EventObject e) {
+				if (e.getKey() == KeyCodes.KEY_ENTER && txtMotsCles.getText()!="")
+					rechercheDuProjet();
+			}
+		});	
+		
 		HorizontalPanel panelControles = new HorizontalPanel();
 		panelControles.add(new HTML("Mot clé à rechercher"));
 		panelControles.add(txtMotsCles);
@@ -86,6 +97,8 @@ public class RechercheMotCles extends VerticalPanel {
 						MessageBox.alert("Aucun projet ne correspond à votre recherche...");
 					else
 						MessageBox.alert(response.getText());
+					txtMotsCles.setValue("");
+					txtMotsCles.focus();
 						//store.loadXmlData(response.getText(), false);
 				}
 				
