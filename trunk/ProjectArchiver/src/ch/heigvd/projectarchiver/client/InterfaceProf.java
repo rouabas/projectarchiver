@@ -148,7 +148,16 @@ public class InterfaceProf extends VerticalPanel {
 				changerVue(new Recherche());
 			}
 		});
-		menu.addItem(itemChercherProjet);		
+		menu.addItem(itemChercherProjet);			
+		
+		// Menu pour chercher un projet
+		Item itemChercherProjetMC = new Item("Chercher un projet par mot clé");
+		itemChercherProjetMC.addListener(new BaseItemListenerAdapter() {
+			public void onClick(BaseItem item, EventObject e) {
+				changerVue(new RechercheMotCles());
+			}
+		});
+		menu.addItem(itemChercherProjetMC);		
 		
 		// Menu gérer les branches
 		Item itemGererBranches = new Item("Gérer les cours");
