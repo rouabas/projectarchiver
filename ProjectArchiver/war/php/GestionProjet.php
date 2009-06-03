@@ -166,7 +166,7 @@ function filtrerLesProjets($titre, $auteur, $cours, $responsable, $motCle, $anne
 	$projets = $xpath->evaluate('/projets/projet[
 										contains(./titre, "' . $titre . '")
 									and
-										contains(.//auteur, "'. $auteur .'")	
+										contains(//auteur, "'. $auteur .'")	
 									and
 										contains(./idBranche, "'. $cours .'")
 									and
