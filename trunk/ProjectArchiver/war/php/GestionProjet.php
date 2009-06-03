@@ -383,6 +383,13 @@ function uploadFichier($id) {
 }
 
 /**
+ * Permet de rechercher plusieurs projet en fonction d'un mot clé
+ */
+function rechercherProjetMC($motcle){
+	return "!noresult";
+}
+
+/**
  * Traitement des requêtes
  */
 
@@ -437,5 +444,15 @@ switch ($_POST['action']) {
 			
 		echo modifierProjet($_POST['id'], $_POST['titre'], $_POST['idBranche'], $_POST['synopsis'], $_POST['responsables'], $_POST['auteurs'], $_POST['motsCle'], $_POST['nomArchive']);
 		break;
+		
+	case "rechercherProjet" :
+		header('Content-Type: text/plain; charset=utf-8');
+		// Cette méthode ne doit être accessible par que par un professeur
+		include "Session.php";
+		if (!$estLogue)
+			return "!session";
+			
+		echo rechercherProjetMC($_POST['motcle']);
+		break;		
 }
 ?>
