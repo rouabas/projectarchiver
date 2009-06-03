@@ -8,7 +8,9 @@ import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.Response;
 import com.gwtext.client.widgets.Button;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.gwtext.client.core.EventCallback;
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.data.FieldDef;
@@ -24,7 +26,7 @@ import com.gwtext.client.widgets.grid.ColumnConfig;
 import com.gwtext.client.widgets.grid.ColumnModel;
 import com.gwtext.client.widgets.grid.GridPanel;
 
-public class AjoutCours extends Panel{
+public class AjoutCours extends VerticalPanel{
 	
 	private final TextField cours = new TextField();
 	// le flux XML
@@ -38,14 +40,21 @@ public class AjoutCours extends Panel{
 	private final Store datas = new Store(xml);	
 	
 	public AjoutCours(){
-		setBorder(true);
-		setPaddings(15);
-		setTitle("Ajout de cours");
-		setWidth(300);
-		setShadow(true);
-		add(getGrilleBranche());
-		add(getChamps());
-		setCollapsible(true);
+		FlexTable table = new FlexTable();
+		setWidth("100%");
+		setStyleName("margeSup20");
+		setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
+		
+		Panel panelCours = new Panel();
+		panelCours.setBorder(true);
+		panelCours.setPaddings(15);
+		panelCours.setTitle("Ajout de cours");
+		panelCours.setShadow(true);
+		panelCours.add(getGrilleBranche());
+		panelCours.add(getChamps());
+		
+		table.setWidget(0, 0, panelCours);
+		add(table);
 	}
 	
 	private GridPanel getGrilleBranche(){		
@@ -66,8 +75,8 @@ public class AjoutCours extends Panel{
 		grille.setTitle("Liste des cours");
 		grille.setColumnModel(columnModel);
 		grille.setStore(datas);
-		grille.setWidth(200);
-		grille.setHeight(400);
+		grille.setWidth(250);
+		grille.setHeight(200);
 		grille.setStyleName("grille");
 		return grille;
 	}
@@ -137,8 +146,8 @@ public class AjoutCours extends Panel{
 					// Réponse OK
 					else {
 						getXml();
-						MessageBox.alert("Cours ajouté!");
-						
+						cours.setValue("");
+						cours.focus();
 					}		
 				}
 			});
