@@ -82,7 +82,7 @@ public class RechercheMotCles extends VerticalPanel {
 				}
 
 				public void onResponseReceived(Request request, Response response) {
-					if(response.getText().equals("!noresult"))
+					if(response.getText().trim().equals("!noresult"))
 						MessageBox.alert("Aucun projet ne correspond à votre recherche...");
 					else
 						MessageBox.alert(response.getText());
