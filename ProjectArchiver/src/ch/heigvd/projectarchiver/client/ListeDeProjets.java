@@ -1,7 +1,7 @@
 package ch.heigvd.projectarchiver.client;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.data.Record;
 import com.gwtext.client.data.Store;
@@ -45,7 +45,13 @@ public class ListeDeProjets extends GridPanel{
 
 			public void onCellClick(GridPanel grid, int rowIndex, int colIndex, EventObject e) {
 				if (e.getMouseButton() == 0)
-					InterfaceProf.getInstance().changerVue(new PageProjet(getStore().getAt(rowIndex)));
+					if (InterfaceProf.getInstance() != null)
+						InterfaceProf.getInstance().changerVue(new PageProjet(getStore().getAt(rowIndex)));
+					else {
+						RootPanel.get().clear();
+						RootPanel.get().add(new PageProjet(getStore().getAt(rowIndex)));
+					}
+						
 			}			
 		});
 	}
