@@ -91,7 +91,8 @@
 			
 			<td class="Interligne">
 				<xsl:variable name="archive" select="nomArchive"/>
-				<a href="{$archive}">Télécharger l'archive</a>
+				<xsl:variable name="idProjet" select="@id"/>
+				<a href="/ProjectArchiver/projectFiles/{$idProjet}/{$archive}">Télécharger l'archive</a>
 			</td>	
 			
 			<td	 class="Interligne">

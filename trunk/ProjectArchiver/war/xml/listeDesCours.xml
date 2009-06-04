@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <listeDesCours xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="listeDesCours.xsd">
   <cours id="1">
-    <nom>BDR</nom>
+    <nom>WEB</nom>
   </cours>
   <cours id="2">
     <nom>XML</nom>
-  </cours>
-  <cours id="3">
-    <nom>WEB</nom>
-  </cours>
-  <cours id="4">
-    <nom>GEN</nom>
-  </cours>
-  <cours id="5">
-    <nom>PDG</nom>
   </cours>
 </listeDesCours>

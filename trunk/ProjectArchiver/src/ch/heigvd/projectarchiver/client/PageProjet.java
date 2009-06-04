@@ -12,6 +12,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.gwtext.client.core.EventObject;
@@ -112,7 +113,13 @@ public class PageProjet extends VerticalPanel {
 		retour.addListener(new ButtonListenerAdapter() {
 			public void onClick(Button button, EventObject e) {
 				if (e.getMouseButton() == 0)
-					History.back();
+					if (InterfaceProf.getInstance() != null)
+						History.back();
+					else {
+						RootPanel.get().clear();
+						RootPanel.get().add(new Recherche());
+					}
+						
 			}
 		});
 		
@@ -162,8 +169,7 @@ public class PageProjet extends VerticalPanel {
 													MessageBox.alert("Le projet a été supprimé");
 												}
 												else {
-													MessageBox.alert(response.getText());
-													//MessageBox.alert("Une erreur est survenue lors de la suppression. Veuillez réessayer");
+													MessageBox.alert("Une erreur est survenue lors de la suppression. Veuillez réessayer");
 												}
 												
 											}

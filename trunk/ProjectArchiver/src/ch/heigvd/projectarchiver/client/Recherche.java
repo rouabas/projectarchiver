@@ -1,12 +1,15 @@
 package ch.heigvd.projectarchiver.client;
 import ch.heigvd.projectarchiver.client.utils.AjaxRequest;
 
+import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.Response;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.VerticalPanel;
+import com.gwtext.client.core.EventCallback;
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.data.FieldDef;
 import com.gwtext.client.data.RecordDef;
@@ -19,11 +22,8 @@ import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.form.TextField;
 
-public class Recherche extends Panel{
-	
-	
-	
-	
+public class Recherche extends VerticalPanel{
+
 	final private XmlReader reader = new XmlReader("projet", new RecordDef(  
             new FieldDef[]{  
             		new StringFieldDef("@id"),
@@ -38,28 +38,10 @@ public class Recherche extends Panel{
             }
     ));
 	
-	private final Label label_titre = new Label("Titre");
-	private final TextField filtre_titre = new TextField();
-	
-	private final Label label_auteur = new Label("Auteur");
-	private final TextField filtre_auteur = new TextField();
-	
-	private final Label label_cours = new Label("Cours");
-	private final TextField filtre_cours = new TextField();
-	
-	
-	private final Label label_Responsable = new Label("Responsable");
-	private final TextField filtre_Responsable = new TextField();
-	
-	private final Label label_motCle = new Label("Mot clé");
-	private final TextField filtre_motCle = new TextField();
-	
-	private final Label label_annee = new Label("Année");
-	private final TextField filtre_annee = new TextField();
-	
-	
+	private final Label labelCritere = new Label("Critère");
+	private final TextField filtreCritere = new TextField();
+		
 	private final Button btnRechercher = new Button("Rechercher");
-	private final Panel resultats = new Panel();
 	
 	FlexTable table = new FlexTable();
 	private Store store = new Store(reader);
@@ -68,32 +50,12 @@ public class Recherche extends Panel{
 	/**
 	 * Charge les projets dans la liste des projets
 	**/
-	private void recherche(String titre, 
-						   String auteur,
-						   String cours,
-						   String responsable, 
-						   String motCle, 
-						   String annee) {
+	private void recherche(String critere) {
 		
 		AjaxRequest request = new AjaxRequest("php/GestionProjet.php");
 		
-//	
-//		titre = titre==""?"###":titre;
-//		auteur = auteur==""?"###":auteur;
-//		cours = cours==""?"###":cours;
-//		responsable = responsable==""?"###":responsable;
-//		motCle = motCle==""?"###":motCle;
-//		annee = annee==""?"###":annee;
-		
-		
-		
 		request.addParameter("action", "filtrerLesProjets");
-		request.addParameter("f_titre", titre);
-		request.addParameter("f_auteur", auteur);
-		request.addParameter("f_cours", cours);
-		request.addParameter("f_responsable", responsable);
-		request.addParameter("f_motCle", motCle);
-		request.addParameter("f_annee", annee);
+		request.addParameter("critere", critere);
 		
 		
 		try {
@@ -104,7 +66,13 @@ public class Recherche extends Panel{
 				}
 
 				public void onResponseReceived(Request request, Response response) {
-					store.loadXmlData(response.getText(), false);
+					if (response.getText().trim().equals("!aucun")) {
+						MessageBox.alert("Aucun résulat n'a été trouvé avec ce critère");
+						store.removeAll();
+					}
+						
+					else
+						store.loadXmlData(response.getText(), false);
 				}
 				
 			});
@@ -116,60 +84,36 @@ public class Recherche extends Panel{
 	
 	
 	public Recherche(){
-		setBorder(true);
-		setPaddings(15);
-		setTitle("Recherche de projets");
-		setWidth(300);
-		setShadow(true);
-		setCollapsible(true);
+		setStyleName("margeSup20");
 		setWidth("100%");
-		setHeight("1000px");
+		setHorizontalAlignment(VerticalPanel.ALIGN_CENTER);
 				
 		// Ajoute les composants au formulaire
 		HorizontalPanel controles = new HorizontalPanel();
 
-		controles.add(label_titre);
-		controles.add(filtre_titre);
-		
-		controles.add(label_auteur);
-		controles.add(filtre_auteur);
-		
-		controles.add(label_cours);
-		controles.add(filtre_cours);
-		
-		controles.add(label_Responsable);
-		controles.add(filtre_Responsable);
-		
-		controles.add(label_motCle);
-		controles.add(filtre_motCle);
-		
-		controles.add(label_annee);
-		controles.add(filtre_annee);
-		
-		controles.add(btnRechercher);
+		// Validation par return dans le champ de recherche
+		filtreCritere.addKeyPressListener(new EventCallback() {
 
+			public void execute(EventObject e) {
+				if (e.getKey() == KeyCodes.KEY_ENTER)
+					btnRechercher.fireEvent("click");
+			}
+		});
 		
-		
+		controles.add(labelCritere);
+		controles.add(filtreCritere);		
+		controles.add(btnRechercher);
+	
 		add(controles);
-		
-		
-		
-		
+
+		table.setStyleName("margeSup20");
 		table.setWidget(0, 0, new ListeDeProjets(store, "Liste des projets"));
+		table.setWidth("900px");
 		add(table);
-		
-		
-		
-		add(resultats);
 		
 		btnRechercher.addListener(new ButtonListenerAdapter() {
 			public void onClick(Button button, EventObject e) {
-				recherche(filtre_titre.getText(),
-						  filtre_auteur.getText(),
-						  filtre_cours.getText(),
-						  filtre_Responsable.getText(),
-						  filtre_motCle.getText(),
-						  filtre_annee.getText());
+				recherche(filtreCritere.getText());
 			}
 		});		
 	}	

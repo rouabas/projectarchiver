@@ -151,7 +151,7 @@ function listerTousLesProjets() {
 /**
  * Filtre tous les projets
  */
-function filtrerLesProjets($titre, $auteur, $cours, $responsable, $motCle, $annee) {
+function filtrerLesProjets($critere) {
 		
 	error_reporting(0);
 	set_error_handler("traitementErreurs");
@@ -162,21 +162,13 @@ function filtrerLesProjets($titre, $auteur, $cours, $responsable, $motCle, $anne
 
 	// Récupération de tous les projets avec XPATH
 	$xpath = new DOMXPath($document);
+												
+	$projets = $xpath->evaluate('/projets/projet[contains(., "'. $critere .'")]');
 	
-	$projets = $xpath->evaluate('/projets/projet[
-										contains(./titre, "' . $titre . '")
-									and
-										contains(//auteur, "'. $auteur .'")	
-									and
-										contains(./idBranche, "'. $cours .'")
-									and
-										contains(.//responsable, "'. $responsable .'")
-									and
-										contains(.//motCle, "'. $motCle .'")
-									and
-										contains(./ajouteLe, "'. $annee .'")
-												]');
+	if ($projets->length == 0)
+		return "!aucun";
 									
+	//return $projets->length;
 	return obtenirChaineXMLProjets($projets);
 }
 
@@ -383,13 +375,6 @@ function uploadFichier($id) {
 }
 
 /**
- * Permet de rechercher plusieurs projet en fonction d'un mot clé
- */
-function rechercherProjetMC($motcle){
-	return "!noresult";
-}
-
-/**
  * Traitement des requêtes
  */
 
@@ -412,8 +397,7 @@ switch ($_POST['action']) {
 		
 	case "filtrerLesProjets" :
 		header('Content-Type: text/plain; charset=utf-8');
-		
-		echo filtrerLesProjets($_POST['f_titre'], $_POST['f_auteur'], $_POST['f_cours'], $_POST['f_responsable'], $_POST['f_motCle'], $_POST['f_annee']);
+		echo filtrerLesProjets($_POST['critere']);
 		break;
 
 	case "supprimerProjet" :
@@ -443,16 +427,6 @@ switch ($_POST['action']) {
 			return "!session";
 			
 		echo modifierProjet($_POST['id'], $_POST['titre'], $_POST['idBranche'], $_POST['synopsis'], $_POST['responsables'], $_POST['auteurs'], $_POST['motsCle'], $_POST['nomArchive']);
-		break;
-		
-	case "rechercherProjet" :
-		header('Content-Type: text/plain; charset=utf-8');
-		// Cette méthode ne doit être accessible par que par un professeur
-		include "Session.php";
-		if (!$estLogue)
-			return "!session";
-			
-		echo rechercherProjetMC($_POST['motcle']);
 		break;		
 }
 ?>

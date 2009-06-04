@@ -53,6 +53,9 @@ public class InterfaceProf extends VerticalPanel {
 				else if (event.getValue().equals("AjoutCours")) {
 					changerVue(new AjoutCours());
 				}
+				else if (event.getValue().equals("Recherche")) {
+					changerVue(new Recherche());
+				}
 			}
 			
 		});
@@ -145,19 +148,11 @@ public class InterfaceProf extends VerticalPanel {
 		Item itemChercherProjet = new Item("Chercher un projet");
 		itemChercherProjet.addListener(new BaseItemListenerAdapter() {
 			public void onClick(BaseItem item, EventObject e) {
+				History.newItem("Recherche");
 				changerVue(new Recherche());
 			}
 		});
 		menu.addItem(itemChercherProjet);			
-		
-		// Menu pour chercher un projet
-		Item itemChercherProjetMC = new Item("Chercher un projet par mot clé");
-		itemChercherProjetMC.addListener(new BaseItemListenerAdapter() {
-			public void onClick(BaseItem item, EventObject e) {
-				changerVue(new RechercheMotCles());
-			}
-		});
-		menu.addItem(itemChercherProjetMC);		
 		
 		// Menu gérer les branches
 		Item itemGererBranches = new Item("Gérer les cours");

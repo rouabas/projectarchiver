@@ -1,7 +1,9 @@
 package ch.heigvd.projectarchiver.client.utils;
 
 import ch.heigvd.projectarchiver.client.InterfaceProf;
+import ch.heigvd.projectarchiver.client.Recherche;
 
+import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestCallback;
@@ -15,10 +17,13 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.gwtext.client.core.EventCallback;
 import com.gwtext.client.core.EventObject;
 import com.gwtext.client.widgets.Button;
+import com.gwtext.client.widgets.Component;
 import com.gwtext.client.widgets.MessageBox;
 import com.gwtext.client.widgets.Panel;
+import com.gwtext.client.widgets.event.ButtonListener;
 import com.gwtext.client.widgets.event.ButtonListenerAdapter;
 import com.gwtext.client.widgets.form.TextField;
+import com.gwtext.client.widgets.menu.Menu;
 
 public class Authentification extends VerticalPanel {
 	
@@ -105,6 +110,13 @@ public class Authentification extends VerticalPanel {
 		
 		contenu.add(new HTML("La consultation des projets est ouverte à tous.</BR>Cliquez ci-dessous pour entrer dans l'espace public"));
 		contenu.add(boutonEntrer);
+		boutonEntrer.addListener(new ButtonListenerAdapter() {
+
+			public void onClick(Button button, EventObject e) {
+				RootPanel.get().clear();
+				RootPanel.get().add(new Recherche());
+			}
+		});
 		
 		panneauAccueil.add(contenu);
 		
